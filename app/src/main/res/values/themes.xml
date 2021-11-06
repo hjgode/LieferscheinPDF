@@ -1,0 +1,37 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.TableLayout" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryDark">@color/purple_700</item>
+        <item name="colorAccent">@color/teal_200</item>
+        <!-- Customize your theme here. -->
+    </style>
+    <style name="MyButtonStyleSmall" parent="android:Widget.Button.Small">
+        <!-- Customizations  -->
+        <item name="android:minHeight">0dp</item>
+        <item name="android:minWidth">0dp</item>
+    </style>
+    <style name="MyEditTextStyleSmall" parent="android:Widget.EditText">
+        <!-- Customizations  -->
+        <item name="android:maxLines">1</item>
+    </style>
+    <style name="MyEditTextStyleWide" parent="android:Widget.EditText">
+        <!-- Customizations  -->
+        <item name="android:maxLines">1</item>
+    </style>
+    <style name="MyImageViewStyleSamll" >
+        <!-- Customizations  -->
+        <item name="android:layout_width">30dp</item>
+        <item name="android:maxWidth">30dp</item>
+        <item name="android:layout_weight">10</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:layout_gravity">right</item>
+        <item name="android:columnWidth">40dp</item>
+        <item name="android:gravity">right</item>
+
+    </style>
+
+</resources>
