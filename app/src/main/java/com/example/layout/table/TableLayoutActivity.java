@@ -1,5 +1,5 @@
 //TableLayoutActivity
-package com.dev2qa.example.layout.table;
+package com.example.layout.table;
 
 import android.Manifest;
 import android.app.Activity;
@@ -162,7 +162,9 @@ public class TableLayoutActivity extends AppCompatActivity implements View.OnKey
                 mSignaturePad.setEnabled(true);
             }
         });
+
         Button buttonCreatePDF=(Button)findViewById(R.id.button_create_pdf);
+
         mSignaturePad.setOnSignedListener(new SignaturePad.OnSignedListener() {
             @Override
             public void onStartSigning() {

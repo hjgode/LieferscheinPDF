@@ -1,4 +1,4 @@
-package com.dev2qa.example.layout.table;
+package com.example.layout.table;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
