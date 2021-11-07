@@ -4,6 +4,7 @@ package com.example.layout.table;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.EntityIterator;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -46,6 +47,11 @@ public class TableLayoutActivity extends AppCompatActivity implements View.OnKey
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
+    EditText editName;
+    EditText editStrasse;
+    EditText editOrt;
+    TableLayout tableLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,8 +61,13 @@ public class TableLayoutActivity extends AppCompatActivity implements View.OnKey
 
         setTitle("Artikel Liste");
 
+        editName=(EditText)findViewById(R.id.editTextTextPersonName);
+        editStrasse=(EditText)findViewById(R.id.editTextPersonStrasse);
+        editOrt=(EditText)findViewById(R.id.editTextPersonOrt);
+
         // Get TableLayout object in layout xml.
-        final TableLayout tableLayout = (TableLayout)findViewById(R.id.table_layout_table);
+        //final TableLayout
+                tableLayout = (TableLayout)findViewById(R.id.table_layout_table);
 
         context = getApplicationContext();
 
@@ -272,5 +283,40 @@ public class TableLayoutActivity extends AppCompatActivity implements View.OnKey
         OutputStream stream = new FileOutputStream(photo);
         newBitmap.compress(Bitmap.CompressFormat.JPEG, 80, stream);
         stream.close();
+    }
+    String[] list= {"name",
+            "strasse",
+            "ort"};
+    private Bundle createBundle(){
+        Bundle bundle=new Bundle();
+        bundle.putString(list[0], editName.getText().toString());
+        bundle.putString(list[1], editStrasse.getText().toString());
+        bundle.putString(list[2], editOrt.getText().toString());
+
+        ArtikelListe artikelListe=new ArtikelListe();
+        TableLayout table=tableLayout;
+        for(int i = 0, j = table.getChildCount(); i < j; i++) {
+            View child = table.getChildAt(i);
+            if (child instanceof TableRow) {
+                TableRow row = (TableRow) child;
+                Artikel artikel=new Artikel();
+                for (int x = 0; x < row.getChildCount(); x++) {
+                    View view = row.getChildAt(x);
+                    //0 -> Menge
+                    //1 -> ArtikelNummer/Text
+                    if (view instanceof EditText) {
+                        String s = ((EditText) view).getText().toString();
+                        if(x==0) {
+                            artikel.set_menge(s);
+                        }
+                        else if (x==1){
+                            artikel.set_artikelnummer(s);
+                        }
+                    }
+                }
+            }
+        }
+        bundle.putParcelableArray("artikellist", artikelListe.getArtikel());
+        return bundle;
     }
 }
