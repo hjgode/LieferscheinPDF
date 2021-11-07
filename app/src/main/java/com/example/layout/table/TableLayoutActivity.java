@@ -52,6 +52,9 @@ public class TableLayoutActivity extends AppCompatActivity implements View.OnKey
     EditText editOrt;
     TableLayout tableLayout;
 
+    SignaturePad mSignaturePad=null;
+    Bitmap signatureBitmap=null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +70,7 @@ public class TableLayoutActivity extends AppCompatActivity implements View.OnKey
 
         // Get TableLayout object in layout xml.
         //final TableLayout
-                tableLayout = (TableLayout)findViewById(R.id.table_layout_table);
+        tableLayout = (TableLayout)findViewById(R.id.table_layout_table);
 
         context = getApplicationContext();
 
@@ -147,14 +150,14 @@ public class TableLayoutActivity extends AppCompatActivity implements View.OnKey
             }
         });
 
-        SignaturePad mSignaturePad=(SignaturePad)findViewById(R.id.signature_pad);
+        mSignaturePad=(SignaturePad)findViewById(R.id.signature_pad);
 
         Button buttonSaveSignature=(Button)findViewById(R.id.saveSignatureButton);
 
         buttonSaveSignature.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View view) {
-                   Bitmap signatureBitmap=mSignaturePad.getSignatureBitmap();
+                   signatureBitmap=mSignaturePad.getSignatureBitmap();
                    //save the bitmap
                    if (addJpgSignatureToGallery(signatureBitmap)) {
                        Toast.makeText(context, "Signature saved into the Gallery", Toast.LENGTH_SHORT).show();
@@ -287,6 +290,19 @@ public class TableLayoutActivity extends AppCompatActivity implements View.OnKey
     String[] list= {"name",
             "strasse",
             "ort"};
+    private void dataFromBundle(Bundle bundle){
+        editName.setText(bundle.getString("list[0]"));
+        editStrasse.setText(bundle.getString("list[1]"));
+        editOrt.setText(bundle.getString("list[2]"));
+        //add artikel to table...
+
+        Bitmap bitmap=bundle.getParcelable("signature");
+        if(bitmap!=null){
+            mSignaturePad.setSignatureBitmap(bitmap);
+        }
+
+    }
+
     private Bundle createBundle(){
         Bundle bundle=new Bundle();
         bundle.putString(list[0], editName.getText().toString());
@@ -318,6 +334,7 @@ public class TableLayoutActivity extends AppCompatActivity implements View.OnKey
             }
         }
         bundle.putParcelableArrayList("",artikelListe.getArtikel());
+        bundle.putParcelable("signature", signatureBitmap);
 
         return bundle;
     }
