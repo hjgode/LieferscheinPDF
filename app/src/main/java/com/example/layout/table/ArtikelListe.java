@@ -13,7 +13,7 @@ public class ArtikelListe  {
     public void add(Artikel artikel){
         _artikelliste.add(artikel);
     }
-    public Parcelable[] getArtikel(){
+    public ArrayList<Artikel> getArtikel(){
         return this._artikelliste;
     }
 }

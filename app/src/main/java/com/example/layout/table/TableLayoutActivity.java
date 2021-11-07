@@ -313,10 +313,12 @@ public class TableLayoutActivity extends AppCompatActivity implements View.OnKey
                             artikel.set_artikelnummer(s);
                         }
                     }
+                    artikelListe.add(artikel);
                 }
             }
         }
-        bundle.putParcelableArray("artikellist", artikelListe.getArtikel());
+        bundle.putParcelableArrayList("",artikelListe.getArtikel());
+
         return bundle;
     }
 }

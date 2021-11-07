@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Artikel implements Parcelable {
-    private static int _ipos=0;
     private String _pos="1";
     private String _menge = "1";
     private String _artikelnummer = "";
@@ -34,15 +33,13 @@ public class Artikel implements Parcelable {
         return this._artikelText;
     }
 
-    public Artikel(String pos, String menge, String nummer, String text){
-        _pos=pos;
+    public Artikel(String menge, String nummer, String text){
         _artikelText=text;
         _artikelnummer=nummer;
         _menge=menge;
     }
     public Artikel(){
-        _ipos++;
-        _pos=_""+_ipos;
+
     }
     // Parcelling part
     public Artikel(Parcel in){
