@@ -1,3 +1,3 @@
-include ':itextpdf-5.5.13.2'
+include ':itextg-5.5.10'
 include ':app'
 rootProject.name = "TableLayout"

@@ -12,7 +12,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/itextpdf-5.5.13.2" />
+            <option value="$PROJECT_DIR$/itextg-5.5.10" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
