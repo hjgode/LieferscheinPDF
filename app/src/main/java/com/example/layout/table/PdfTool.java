@@ -6,24 +6,26 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.widget.Toast;
 
-import com.itextpdf.io.image.ImageData;
-import com.itextpdf.io.image.ImageDataFactory;
-import com.itextpdf.kernel.colors.Color;
-import com.itextpdf.kernel.colors.DeviceRgb;
-import com.itextpdf.kernel.font.PdfFont;
-import com.itextpdf.kernel.font.PdfFontFactory;
-import com.itextpdf.kernel.geom.PageSize;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfDocumentInfo;
-import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.kernel.pdf.canvas.draw.DottedLine;
-import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.Image;
-import com.itextpdf.layout.element.LineSeparator;
-import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.element.Text;
-import com.itextpdf.layout.property.TextAlignment;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.ChapterAutoNumber;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Jpeg;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfDocument;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.draw.DottedLineSeparator;
+import com.itextpdf.text.pdf.draw.LineSeparator;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.net.ContentHandler;
@@ -41,58 +43,67 @@ public class PdfTool {
         Document document=null;
         PdfDocument pdfDocument=null;
         try {
+            document=new Document();
             FileOutputStream fileOutputStream=new java.io.FileOutputStream(dest);
-            pdfWriter=new PdfWriter(fileOutputStream);// PdfWriter.getInstance(document,fileOutputStream);// (new PdfDocument(), fileOutputStream);
-            pdfDocument = new PdfDocument(pdfWriter);
+            PdfWriter.getInstance(document,fileOutputStream);
+//            pdfWriter=new PdfWriter( fileOutputStream);// PdfWriter.getInstance(document,fileOutputStream);// (new PdfDocument(), fileOutputStream);
+//            pdfDocument = new PdfDocument(pdfWriter);
+            //open document
+            document.open();
+            document.setPageSize(PageSize.A4);
         }catch (Exception ex){
             Log.d(TableLayoutActivity.TAG, ex.getMessage());
         }
         // Document Settings
-        PdfDocumentInfo info=pdfDocument.getDocumentInfo();
-        info.addCreationDate();
-        info.setTitle("Lieferschein");
-        info.setAuthor("mich");
-        info.setSubject("Lieferschein");
-        info.setKeywords("Lieferschein, Unterschrift");
-        info.setCreator("hjgode");
-        //open document
-        document=new Document(pdfDocument, PageSize.A4, true);
+//        PdfDocumentInfo info=pdfDocument.getDocumentInfo();
+        document.addCreationDate();
+        document.addTitle("Lieferschein");
+        document.addAuthor("mich");
+        document.addSubject("Lieferschein");
+        document.addKeywords("Lieferschein, Unterschrift");
+        document.addCreator("hjgode");
 
         /***
          * Variables for further use....
          */
-        Color mColorAccent = new DeviceRgb(153, 204, 255);
-        Color mColorBlack = new DeviceRgb(0, 0, 0);
+        BaseColor mColorAccent = new BaseColor(153, 204, 255);
+        BaseColor mColorBlack = new BaseColor(0, 0, 0);
         float mHeadingFontSize = 20.0f;
-        float mValueFontSize = 26.0f;
-        PdfFont font=null;
+        float mValueFontSize = 20.0f;
+        float mBodyFontSize = 12.0f;
+        BaseFont baseFont=null;
+        Font font=null;
+        Font fontLarge=null;
         try {
             /**
              * How to USE FONT....
              */
-            font = PdfFontFactory.createFont("assets/fonts/FreeMono.otf", "UTF-8", true);
+            final String fontFreeMono = "assets/fonts/FreeMono.otf";
+            baseFont=BaseFont.createFont(fontFreeMono,"UTF-8", BaseFont.EMBEDDED);
+            font = new Font(baseFont, mBodyFontSize);
+            fontLarge=new Font(baseFont, mHeadingFontSize);
         }catch (Exception ex){
             Log.d(TableLayoutActivity.TAG, "Exception for createfont "+ex.getMessage());
         }
         try{
             // LINE SEPARATOR
-            LineSeparator lineSeparator = new LineSeparator(new DottedLine());
-            lineSeparator.setStrokeColor(new DeviceRgb(0, 0, 68));
+            DottedLineSeparator lineSeparator = new DottedLineSeparator();
+            lineSeparator.setLineColor (new BaseColor(0, 0, 68));
 
             // Title Order Details...
             // Adding Title....
-            Text mOrderDetailsTitleChunk = new Text("Order Details").setFont(font).setFontSize(36.0f).setFontColor(mColorBlack);
-            Paragraph mOrderDetailsTitleParagraph = new Paragraph(mOrderDetailsTitleChunk)
-                    .setTextAlignment(TextAlignment.CENTER);
+            Chunk mOrderDetailsTitleChunk = new Chunk("Lieferschein", fontLarge);
+            Paragraph mOrderDetailsTitleParagraph = new Paragraph(mOrderDetailsTitleChunk);
+            mOrderDetailsTitleParagraph.setAlignment(Paragraph.ALIGN_CENTER);
             document.add(mOrderDetailsTitleParagraph);
 
             // Fields of Order Details...
             // Adding Chunks for Title and value
-            Text mOrderIdChunk = new Text("Order No:").setFont(font).setFontSize(mHeadingFontSize).setFontColor(mColorAccent);
+            Chunk mOrderIdChunk = new Chunk("Order No:", fontLarge);
             Paragraph mOrderIdParagraph = new Paragraph(mOrderIdChunk);
             document.add(mOrderIdParagraph);
 
-            Text mOrderIdValueChunk = new Text("#123123").setFont(font).setFontSize(mValueFontSize).setFontColor(mColorBlack);
+            Chunk mOrderIdValueChunk = new Chunk("#123123", font);
             Paragraph mOrderIdValueParagraph = new Paragraph(mOrderIdValueChunk);
             document.add(mOrderIdValueParagraph);
 
@@ -104,11 +115,11 @@ public class PdfTool {
             document.add(new Paragraph(""));
 
             // Fields of Order Details...
-            Text mOrderDateChunk = new Text("Order Date:").setFont(font).setFontSize(mHeadingFontSize).setFontColor(mColorAccent);
+            Chunk mOrderDateChunk = new Chunk("Datum:", fontLarge);
             Paragraph mOrderDateParagraph = new Paragraph(mOrderDateChunk);
             document.add(mOrderDateParagraph);
 
-            Text mOrderDateValueChunk = new Text("06/07/2017").setFont(font).setFontSize(mValueFontSize).setFontColor(mColorBlack);
+            Chunk mOrderDateValueChunk = new Chunk("16.11.2021",fontLarge);
             Paragraph mOrderDateValueParagraph = new Paragraph(mOrderDateValueChunk);
             document.add(mOrderDateValueParagraph);
 
@@ -117,11 +128,11 @@ public class PdfTool {
             document.add(new Paragraph(""));
 
             // Fields of Order Details...
-            Text mOrderAcNameChunk = new Text("Account Name:").setFont(font).setFontSize(mHeadingFontSize).setFontColor(mColorAccent);
+            Chunk mOrderAcNameChunk = new Chunk("Kunden Name:", font);
             Paragraph mOrderAcNameParagraph = new Paragraph(mOrderAcNameChunk);
             document.add(mOrderAcNameParagraph);
 
-            Text mOrderAcNameValueChunk = new Text("Pratik Butani").setFont(font).setFontSize(mValueFontSize).setFontColor(mColorBlack);
+            Chunk mOrderAcNameValueChunk = new Chunk("Max Mustermann", font);
             Paragraph mOrderAcNameValueParagraph = new Paragraph(mOrderAcNameValueChunk);
             document.add(mOrderAcNameValueParagraph);
 
@@ -129,21 +140,39 @@ public class PdfTool {
             document.add(lineSeparator);
             document.add(new Paragraph(""));
 
+            PdfPTable table=new PdfPTable(2);
+            table.setWidthPercentage(80f);
+            // Adding cell 1 to the table
+            float[] columnw={150f,150f,150f};
+            PdfPCell cell1 = new PdfPCell(new Phrase("Menge"));
+            cell1.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+
+            //cell1.add(new BlockElement<String>(){"Name"});         // Adding content to the cell
+            table.addCell(cell1);      // Adding cell to the table
+
+            // Adding cell 2 to the table Cell
+            PdfPCell cell2 = new PdfPCell(new Paragraph("Artikel"));
+            cell2.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);// Creating a cell
+            table.addCell(cell2);     // Adding cell to the table
+
+            document.add(table);
 
             //Inserting Image in PDF
             // Creating an ImageData object
-            String imageFile = bundle.getString("signaturefile");
-            ImageData data = ImageDataFactory.create(imageFile);
+            String imageFile = bundle.getString(Constants.BUNDLE_SIGNATUREFILE);
+            Image image = Image.getInstance(imageFile);
             // Creating an Image object
-            Image img = new Image(data);
-            img.setAutoScaleWidth(true);
-            img.setHeight(100);
-            document.add(img);
+            image.setScaleToFitHeight(true);
+            image.scaleToFit(100f,100f);
+
+            document.add(image);
+
+            document.close();
+            Toast.makeText(context, "PDF gespeichert: "+dest,Toast.LENGTH_LONG);
 
         }catch (Exception ex){
             Log.d(TableLayoutActivity.TAG, "document.add exception: "+ex.getMessage());
         }
-        document.close();
 
     }
     /**

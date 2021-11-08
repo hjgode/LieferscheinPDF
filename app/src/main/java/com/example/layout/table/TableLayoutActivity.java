@@ -356,14 +356,14 @@ public class TableLayoutActivity extends AppCompatActivity implements View.OnKey
                             artikel.set_artikelnummer(s);
                         }
                     }
-                    artikelListe.add(artikel);
-                }
+                }//if instance TableRow
+                artikelListe.add(artikel);
             }
         }
         bundle.putParcelableArrayList("artikelliste",artikelListe.getArtikel());
 
         //signature must be passed by file name
-        bundle.putString("signaturefile", signatureFilename);
+        bundle.putString(Constants.BUNDLE_SIGNATUREFILE, signatureFilename);
 
         return bundle;
     }
