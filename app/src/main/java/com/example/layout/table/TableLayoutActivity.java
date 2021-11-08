@@ -8,6 +8,7 @@ import android.content.EntityIterator;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.net.Uri;
@@ -42,7 +43,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TableLayoutActivity extends AppCompatActivity implements View.OnKeyListener {
-    static String TAG="TableLayout";
+    public static String TAG="TableLayout";
     private Context context = null;
     int currentRowNumber=0;
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
@@ -55,6 +56,7 @@ public class TableLayoutActivity extends AppCompatActivity implements View.OnKey
 
     SignaturePad mSignaturePad=null;
     Bitmap signatureBitmap=null;
+    String signatureFilename="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -179,6 +181,12 @@ public class TableLayoutActivity extends AppCompatActivity implements View.OnKey
         });
 
         Button buttonCreatePDF=(Button)findViewById(R.id.button_create_pdf);
+        buttonCreatePDF.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PdfTool pdfTool=new PdfTool(context, createBundle());
+            }
+        });
 
         mSignaturePad.setOnSignedListener(new SignaturePad.OnSignedListener() {
             @Override
@@ -279,6 +287,7 @@ public class TableLayoutActivity extends AppCompatActivity implements View.OnKey
             File photo = new File(getAlbumStorageDir("SignaturePad"), "Signature_lieferschein.jpg");
             saveBitmapToJPG(signature, photo);
             scanMediaFile(photo);
+            signatureFilename=photo.getAbsolutePath();
             result = true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -312,8 +321,9 @@ public class TableLayoutActivity extends AppCompatActivity implements View.OnKey
         //add artikel to table...
         ArrayList<Artikel> artikelListe=bundle.getParcelableArrayList("artikelliste");
 
-        Bitmap bitmap=bundle.getParcelable("signature");
-        if(bitmap!=null){
+        String sf=bundle.getString("signaturefile");
+        if(sf!=""){
+            Bitmap bitmap= BitmapFactory.decodeFile(signatureFilename);
             mSignaturePad.setSignatureBitmap(bitmap);
         }
 
@@ -351,7 +361,9 @@ public class TableLayoutActivity extends AppCompatActivity implements View.OnKey
             }
         }
         bundle.putParcelableArrayList("artikelliste",artikelListe.getArtikel());
-        bundle.putParcelable("signature", signatureBitmap);
+
+        //signature must be passed by file name
+        bundle.putString("signaturefile", signatureFilename);
 
         return bundle;
     }
