@@ -130,10 +130,12 @@ public class PdfTool {
             // Fields of Order Details...
             Chunk mOrderAcNameChunk = new Chunk("Kunden Name:", font);
             Paragraph mOrderAcNameParagraph = new Paragraph(mOrderAcNameChunk);
+            mOrderAcNameParagraph.setIndentationLeft(200f);
             document.add(mOrderAcNameParagraph);
 
             Chunk mOrderAcNameValueChunk = new Chunk("Max Mustermann", font);
             Paragraph mOrderAcNameValueParagraph = new Paragraph(mOrderAcNameValueChunk);
+            mOrderAcNameValueParagraph.setIndentationLeft(200f);
             document.add(mOrderAcNameValueParagraph);
 
             document.add(new Paragraph(""));
@@ -141,19 +143,37 @@ public class PdfTool {
             document.add(new Paragraph(""));
 
             PdfPTable table=new PdfPTable(2);
+            table.setWidths(new int[]{10,90});
             table.setWidthPercentage(80f);
-            // Adding cell 1 to the table
-            float[] columnw={150f,150f,150f};
-            PdfPCell cell1 = new PdfPCell(new Phrase("Menge"));
-            cell1.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+            table.setHorizontalAlignment(PdfPTable.ALIGN_LEFT);
+            table.setSpacingBefore(15f);
+            table.setSpacingAfter(10f);
 
-            //cell1.add(new BlockElement<String>(){"Name"});         // Adding content to the cell
-            table.addCell(cell1);      // Adding cell to the table
+            //add header
+            /*Sets the number of rows to be used for the footer. The number of footer rows are
+              subtracted from the header rows. For example, for a table with two header rows
+              and one footer row the code would be:
 
-            // Adding cell 2 to the table Cell
-            PdfPCell cell2 = new PdfPCell(new Paragraph("Artikel"));
-            cell2.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);// Creating a cell
-            table.addCell(cell2);     // Adding cell to the table
+             table.setHeaderRows(3);
+             table.setFooterRows(1);
+
+            Row 0 and 1 will be the header rows and row 2 will be the footer row.
+
+             */
+            table.setHeaderRows(2);
+            table.setFooterRows(1);
+            //header row
+            addRow(table,"Menge", "Artikel");
+            //footer row(s)
+            addRow(table, "46","Packstücke");
+
+            // Adding cells 1 to the table, rows will be started automatically after row is full
+            addRow(table, "10", "Artikeltext");
+            addRow(table, "5", "Holzleisten");
+            addRow(table, "8", "Kanthölzer");
+            addRow(table, "10", "Artikeltext");
+            addRow(table, "5", "Holzleisten");
+            addRow(table, "8", "Kanthölzer");
 
             document.add(table);
 
@@ -164,6 +184,8 @@ public class PdfTool {
             // Creating an Image object
             image.setScaleToFitHeight(true);
             image.scaleToFit(100f,100f);
+            //image.setAlignment(Image.ALIGN_RIGHT);
+            image.setIndentationLeft(200);
 
             document.add(image);
 
@@ -173,6 +195,16 @@ public class PdfTool {
         }catch (Exception ex){
             Log.d(TableLayoutActivity.TAG, "document.add exception: "+ex.getMessage());
         }
+
+    }
+    private void addRow(PdfPTable pdfPTable, String menge, String text){
+        PdfPCell cell1 = new PdfPCell(new Phrase(menge));
+        cell1.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+        pdfPTable.addCell(cell1);      // Adding cell to the table
+
+        PdfPCell cell2 = new PdfPCell(new Phrase(text));
+        cell2.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+        pdfPTable.addCell(cell2);      // Adding cell to the table
 
     }
     /**
