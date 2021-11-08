@@ -13,6 +13,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -41,7 +42,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TableLayoutActivity extends AppCompatActivity implements View.OnKeyListener {
-
+    static String TAG="TableLayout";
     private Context context = null;
     int currentRowNumber=0;
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
@@ -199,9 +200,22 @@ public class TableLayoutActivity extends AppCompatActivity implements View.OnKey
                 buttonCreatePDF.setEnabled(true);
             }
         });
-
+        if(savedInstanceState!=null){
+            dataFromBundle(savedInstanceState);
+        }
     }//onCreate
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putAll(createBundle());
+    }
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        Bundle bundle=savedInstanceState;
+        dataFromBundle(bundle);
+    }
     @Override
     public boolean onKey(View view, int keyCode, KeyEvent event) {
         if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
@@ -291,10 +305,12 @@ public class TableLayoutActivity extends AppCompatActivity implements View.OnKey
             "strasse",
             "ort"};
     private void dataFromBundle(Bundle bundle){
+        Log.d(TAG, "dataFromBundle: ");
         editName.setText(bundle.getString("list[0]"));
         editStrasse.setText(bundle.getString("list[1]"));
         editOrt.setText(bundle.getString("list[2]"));
         //add artikel to table...
+        ArrayList<Artikel> artikelListe=bundle.getParcelableArrayList("artikelliste");
 
         Bitmap bitmap=bundle.getParcelable("signature");
         if(bitmap!=null){
@@ -304,6 +320,7 @@ public class TableLayoutActivity extends AppCompatActivity implements View.OnKey
     }
 
     private Bundle createBundle(){
+        Log.d(TAG,"createBundle...");
         Bundle bundle=new Bundle();
         bundle.putString(list[0], editName.getText().toString());
         bundle.putString(list[1], editStrasse.getText().toString());
@@ -333,7 +350,7 @@ public class TableLayoutActivity extends AppCompatActivity implements View.OnKey
                 }
             }
         }
-        bundle.putParcelableArrayList("",artikelListe.getArtikel());
+        bundle.putParcelableArrayList("artikelliste",artikelListe.getArtikel());
         bundle.putParcelable("signature", signatureBitmap);
 
         return bundle;
