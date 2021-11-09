@@ -25,13 +25,20 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Kunde" >
+                        android:text="Kunde"
+                        android:textSize="@dimen/LargeFont">
                     </TextView>
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Hide"
-                        android:id="@+id/button_show_hide_kunde">
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:textSize="@dimen/SmallFont"
+                        android:layout_gravity="right"
+                        android:gravity="right"
+                        android:id="@+id/button_show_hide_kunde"
+                        android:theme="@style/Widget.AppCompat.Button.Small" >
 
                     </Button>
                 </LinearLayout>
@@ -145,7 +152,7 @@
                                 android:padding="5dp"
                                 android:text="Artikel"
                                 android:textAlignment="textStart"
-                                android:textSize="24dp" />
+                                android:textSize="@dimen/LargeFont" />
                             <!-- button to add row -->
                             <Button
                                 android:id="@+id/table_layout_add_row_button"
@@ -153,7 +160,10 @@
                                 android:layout_gravity="end"
                                 android:text="+"
                                 android:textAlignment="viewEnd"
-                                android:textSize="@dimen/SmallFont" />
+                                android:textSize="@dimen/SmallFont"
+                                android:minWidth="0dp"
+                                android:minHeight="0dp"
+                                android:theme="@style/Widget.AppCompat.Button.Small" />
 
                         </TableRow>
                     </TableLayout>
