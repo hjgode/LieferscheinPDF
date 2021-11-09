@@ -155,6 +155,15 @@ public class TableLayoutActivity extends AppCompatActivity implements View.OnKey
 
         mSignaturePad=(SignaturePad)findViewById(R.id.signature_pad);
 
+        Button buttonCreatePDF=(Button)findViewById(R.id.button_create_pdf);
+        buttonCreatePDF.setEnabled(false);
+        buttonCreatePDF.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PdfTool pdfTool=new PdfTool(context, createBundle());
+            }
+        });
+
         Button buttonSaveSignature=(Button)findViewById(R.id.saveSignatureButton);
 
         buttonSaveSignature.setOnClickListener(new View.OnClickListener() {
@@ -165,6 +174,7 @@ public class TableLayoutActivity extends AppCompatActivity implements View.OnKey
                    if (addJpgSignatureToGallery(signatureBitmap)) {
                        Toast.makeText(context, "Signature saved into the Gallery", Toast.LENGTH_SHORT).show();
                        mSignaturePad.setEnabled(false);
+                       buttonCreatePDF.setEnabled(true);
                    } else {
                        Toast.makeText(context, "Unable to store the signature", Toast.LENGTH_SHORT).show();
                    }
@@ -177,14 +187,7 @@ public class TableLayoutActivity extends AppCompatActivity implements View.OnKey
             public void onClick(View view) {
                 mSignaturePad.clear();
                 mSignaturePad.setEnabled(true);
-            }
-        });
-
-        Button buttonCreatePDF=(Button)findViewById(R.id.button_create_pdf);
-        buttonCreatePDF.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PdfTool pdfTool=new PdfTool(context, createBundle());
+                buttonCreatePDF.setEnabled(false);
             }
         });
 

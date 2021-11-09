@@ -201,7 +201,11 @@ public class PdfTool {
                 }
 
             }
-            document.add(table);
+
+            Paragraph pTable=new Paragraph();
+            pTable.add(table);
+            pTable.setIndentationLeft(30);
+            document.add(pTable);//document.add(table);
 
             // see https://github.com/venkatvkpt/Invoice-PDF-ITEXT-/blob/master/src/com/pdf/InvoiceGenerator.java
             PdfPTable irdTable = new PdfPTable(2);
@@ -226,7 +230,7 @@ public class PdfTool {
             Font font = FontFactory.getFont(FontFactory.TIMES_ROMAN, 13, Font.BOLD);
             fs.addFont(font);
             Phrase bill = fs.process("Bill To"); // customer information
-            Paragraph name = new Paragraph("Mr.Venkateswara Rao");
+            Paragraph name = new Paragraph("Herr Max Mustermann");
             name.setIndentationLeft(20);
             Paragraph contact = new Paragraph("9652886877");
             contact.setIndentationLeft(20);
