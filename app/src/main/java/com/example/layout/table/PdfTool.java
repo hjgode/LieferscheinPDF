@@ -32,6 +32,7 @@ import com.itextpdf.text.pdf.draw.LineSeparator;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.net.ContentHandler;
+import java.util.ArrayList;
 
 public class PdfTool {
     Document document;
@@ -46,6 +47,8 @@ public class PdfTool {
         PdfWriter pdfWriter=null;
         Document document=null;
         PdfDocument pdfDocument=null;
+        ArrayList<Artikel> artikelListe=bundle.getParcelableArrayList("artikelliste");
+
         try {
             document=new Document();
             FileOutputStream fileOutputStream=new java.io.FileOutputStream(dest);
@@ -168,17 +171,36 @@ public class PdfTool {
             table.setFooterRows(1);
             //header row
             addRow(table,"Menge", "Artikel");
+
             //footer row(s)
-            addRow(table, "46","Packstücke");
+            int artikelcount=0;
+            if(artikelListe.size()!=0){
+                for (Artikel a:artikelListe
+                ) {
+                    artikelcount+=Integer.parseInt(a.get_menge());
+                }
+                addRow(table, artikelcount+"","Packstücke");
 
-            // Adding cells 1 to the table, rows will be started automatically after row is full
-            addRow(table, "10", "Artikeltext");
-            addRow(table, "5", "Holzleisten");
-            addRow(table, "8", "Kanthölzer");
-            addRow(table, "10", "Artikeltext");
-            addRow(table, "5", "Holzleisten");
-            addRow(table, "8", "Kanthölzer");
+            }else{
+                addRow(table, "46","Packstücke");
+            }
 
+            //add sample data
+            if(artikelListe.size()==0) {
+                // Adding cells 1 to the table, rows will be started automatically after row is full
+                addRow(table, "10", "Artikeltext");
+                addRow(table, "5", "Holzleisten");
+                addRow(table, "8", "Kanthölzer");
+                addRow(table, "10", "Artikeltext");
+                addRow(table, "5", "Holzleisten");
+                addRow(table, "8", "Kanthölzer");
+            }else{
+                for (Artikel a:artikelListe
+                ) {
+                    addRow(table, a.get_menge().toString(), a.get_artikelnummer().toString());
+                }
+
+            }
             document.add(table);
 
             // see https://github.com/venkatvkpt/Invoice-PDF-ITEXT-/blob/master/src/com/pdf/InvoiceGenerator.java

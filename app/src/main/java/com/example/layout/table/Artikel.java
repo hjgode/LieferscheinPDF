@@ -41,6 +41,7 @@ public class Artikel implements Parcelable {
     public Artikel(){
 
     }
+
     // Parcelling part
     public Artikel(Parcel in){
         String[] data = new String[3];
