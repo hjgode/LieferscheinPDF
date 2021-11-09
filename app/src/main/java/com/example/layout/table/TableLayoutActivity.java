@@ -19,6 +19,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
+import android.transition.Visibility;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -58,6 +59,8 @@ public class TableLayoutActivity extends AppCompatActivity implements View.OnKey
     Bitmap signatureBitmap=null;
     String signatureFilename="";
 
+    Button btn_show_hide_kunde;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +74,20 @@ public class TableLayoutActivity extends AppCompatActivity implements View.OnKey
         editStrasse=(EditText)findViewById(R.id.editTextPersonStrasse);
         editOrt=(EditText)findViewById(R.id.editTextPersonOrt);
 
+        btn_show_hide_kunde=(Button)findViewById(R.id.button_show_hide_kunde);
+        View view_kunde=(View)findViewById(R.id.view_kunde);
+        btn_show_hide_kunde.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(view_kunde.getVisibility()== View.GONE){
+                    view_kunde.setVisibility(View.VISIBLE);
+                    btn_show_hide_kunde.setText("Hide");
+                }else {
+                    view_kunde.setVisibility(View.GONE);
+                    btn_show_hide_kunde.setText("Show");
+                }
+            }
+        });
         // Get TableLayout object in layout xml.
         //final TableLayout
         tableLayout = (TableLayout)findViewById(R.id.table_layout_table);
@@ -313,16 +330,14 @@ public class TableLayoutActivity extends AppCompatActivity implements View.OnKey
         newBitmap.compress(Bitmap.CompressFormat.JPEG, 80, stream);
         stream.close();
     }
-    String[] list= {"name",
-            "strasse",
-            "ort"};
+
     private void dataFromBundle(Bundle bundle){
         Log.d(TAG, "dataFromBundle: ");
-        editName.setText(bundle.getString("list[0]"));
-        editStrasse.setText(bundle.getString("list[1]"));
-        editOrt.setText(bundle.getString("list[2]"));
+        editName.setText(bundle.getString(Constants.BUNDLE_KUNDEN_NAME));
+        editStrasse.setText(bundle.getString(Constants.BUNDLE_KUNDEN_STRASSE));
+        editOrt.setText(bundle.getString(Constants.BUNDLE_KUNDEN_ORT));
         //add artikel to table...
-        ArrayList<Artikel> artikelListe=bundle.getParcelableArrayList("artikelliste");
+        ArrayList<Artikel> artikelListe=bundle.getParcelableArrayList(Constants.BUNDLE_ARTIKEL_LISTE);
 
         String sf=bundle.getString("signaturefile");
         if(sf!=""){
@@ -335,9 +350,9 @@ public class TableLayoutActivity extends AppCompatActivity implements View.OnKey
     private Bundle createBundle(){
         Log.d(TAG,"createBundle...");
         Bundle bundle=new Bundle();
-        bundle.putString(list[0], editName.getText().toString());
-        bundle.putString(list[1], editStrasse.getText().toString());
-        bundle.putString(list[2], editOrt.getText().toString());
+        bundle.putString(Constants.BUNDLE_KUNDEN_NAME, editName.getText().toString());
+        bundle.putString(Constants.BUNDLE_KUNDEN_STRASSE, editStrasse.getText().toString());
+        bundle.putString(Constants.BUNDLE_KUNDEN_ORT, editOrt.getText().toString());
 
         ArtikelListe artikelListe=new ArtikelListe();
         TableLayout table=tableLayout;
@@ -363,7 +378,7 @@ public class TableLayoutActivity extends AppCompatActivity implements View.OnKey
                 artikelListe.add(artikel);
             }
         }
-        bundle.putParcelableArrayList("artikelliste",artikelListe.getArtikel());
+        bundle.putParcelableArrayList(Constants.BUNDLE_ARTIKEL_LISTE,artikelListe.getArtikel());
 
         //signature must be passed by file name
         bundle.putString(Constants.BUNDLE_SIGNATUREFILE, signatureFilename);

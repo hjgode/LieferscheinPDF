@@ -47,7 +47,14 @@ public class PdfTool {
         PdfWriter pdfWriter=null;
         Document document=null;
         PdfDocument pdfDocument=null;
-        ArrayList<Artikel> artikelListe=bundle.getParcelableArrayList("artikelliste");
+
+        //get bundle values
+        ArrayList<Artikel> artikelListe=bundle.getParcelableArrayList(Constants.BUNDLE_ARTIKEL_LISTE);
+        String kundenname=bundle.getString(Constants.BUNDLE_KUNDEN_NAME);
+        String kundenstrasse=bundle.getString(Constants.BUNDLE_KUNDEN_STRASSE);
+        String kundenort=bundle.getString(Constants.BUNDLE_KUNDEN_ORT);
+        String lieferstart=bundle.getString(Constants.BUNDLE_LIEFER_START);
+        String lieferende=bundle.getString(Constants.BUNDLE_LIEFER_ENDE);
 
         try {
             document=new Document();

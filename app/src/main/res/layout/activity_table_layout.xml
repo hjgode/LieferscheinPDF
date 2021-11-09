@@ -10,178 +10,220 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
+    <!-- Container for all -->
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
-
-                    <TextView
-                        android:id="@+id/textView3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Name:" />
-
-                    <EditText
-                        android:id="@+id/editTextTextPersonName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textPersonName"
-                        android:text="Name" />
-                </TableRow>
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
-
-                    <TextView
-                        android:id="@+id/textView3b"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Straße:" />
-
-                    <EditText
-                        android:id="@+id/editTextPersonStrasse"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textPersonName"
-                        android:text="Straße" />
-                </TableRow>
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
-
-                    <TextView
-                        android:id="@+id/textView3c"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Name:" />
-
-                    <EditText
-                        android:id="@+id/editTextPersonOrt"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textPersonName"
-                        android:text="Ort" />
-                </TableRow>
-
-            </TableLayout>
-
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <!-- Table header -->
-                <TableLayout
-                    android:id="@+id/table_layout_table_head"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="10dp"
-                    android:stretchColumns="1">
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Kunde" >
+                    </TextView>
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hide"
+                        android:id="@+id/button_show_hide_kunde">
 
-                    <TableRow
-                        android:id="@+id/table_layout_row_head"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <!-- Titel -->
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_column="1"
-                            android:layout_gravity="start"
-                            android:padding="5dp"
-                            android:text="Artikel"
-                            android:textAlignment="textStart"
-                            android:textSize="24dp" />
-                        <!-- button to add row -->
-                        <Button
-                            android:id="@+id/table_layout_add_row_button"
-                            android:layout_column="3"
-                            android:layout_gravity="end"
-                            android:text="+"
-                            android:textAlignment="viewEnd"
-                            android:textSize="@dimen/SmallFont" />
-
-                    </TableRow>
-                </TableLayout>
-                <!-- table header outside list -->
+                    </Button>
+                </LinearLayout>
+                <!-- Kunde -->
                 <TableLayout
-                    android:id="@+id/table_layout_head2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="10dp"
-                    android:stretchColumns="2">
-
-                    <TableRow
-                        android:id="@+id/table_layout_head_row_2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <!-- android:layout_span configure how many columns to span by this column. -->
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_column="1"
-                            android:layout_columnWeight="10"
-                            android:layout_gravity="start"
-                            android:padding="5dp"
-                            android:text="Menge"
-                            android:textAlignment="textStart"
-                            android:textSize="16dp" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_column="2"
-                            android:layout_columnWeight="80"
-                            android:layout_gravity="left"
-                            android:padding="5dp"
-                            android:text="Text"
-                            android:textAlignment="gravity"
-                            android:textSize="16dp" />
-                        <!-- Preis?
-                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_column="2"
-                    android:layout_gravity="end"
-                    android:text="Preis"
-                    android:textAlignment="viewEnd"
-                    android:textSize="16dp"
-                    android:padding="5dp"
+                    android:id="@+id/view_kunde"
+                    >
 
-                    />
-    -->
-                        <!-- column for Button to delete row -->
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
                         <TextView
+                            android:id="@+id/textView3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Name:" />
+
+                        <EditText
+                            android:id="@+id/editTextTextPersonName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_column="3"
-                            android:layout_columnWeight="10"
-                            android:layout_gravity="end"
-                            android:padding="5dp"
-                            android:text="Delete"
-                            android:textAlignment="viewEnd"
-                            android:textSize="16dp" />
+                            android:ems="10"
+                            android:inputType="textPersonName"
+                            android:text="Name" />
                     </TableRow>
-                    <!-- Add a  line. -->
-                    <View
-                        android:layout_height="1px"
-                        android:background="@color/black" />
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/textView3b"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Straße:" />
+
+                        <EditText
+                            android:id="@+id/editTextPersonStrasse"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:inputType="textPersonName"
+                            android:text="Straße" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/textView3c"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Name:" />
+
+                        <EditText
+                            android:id="@+id/editTextPersonOrt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:inputType="textPersonName"
+                            android:text="Ort" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/textView3d"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Liefer Start:" />
+
+                        <EditText
+                            android:id="@+id/editTextLieferStart"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:inputType="datetime" />
+                    </TableRow>
+                </TableLayout>
+
+                <TableLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <!-- Table header -->
+                    <TableLayout
+                        android:id="@+id/table_layout_table_head"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="10dp"
+                        android:stretchColumns="1">
+
+                        <TableRow
+                            android:id="@+id/table_layout_row_head"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <!-- Titel -->
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_column="1"
+                                android:layout_gravity="start"
+                                android:padding="5dp"
+                                android:text="Artikel"
+                                android:textAlignment="textStart"
+                                android:textSize="24dp" />
+                            <!-- button to add row -->
+                            <Button
+                                android:id="@+id/table_layout_add_row_button"
+                                android:layout_column="3"
+                                android:layout_gravity="end"
+                                android:text="+"
+                                android:textAlignment="viewEnd"
+                                android:textSize="@dimen/SmallFont" />
+
+                        </TableRow>
+                    </TableLayout>
+                    <!-- table header outside list -->
+                    <TableLayout
+                        android:id="@+id/table_layout_head2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="10dp"
+                        android:stretchColumns="2">
+
+                        <TableRow
+                            android:id="@+id/table_layout_head_row_2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <!-- android:layout_span configure how many columns to span by this column. -->
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_column="1"
+                                android:layout_columnWeight="10"
+                                android:layout_gravity="start"
+                                android:padding="5dp"
+                                android:text="Menge"
+                                android:textAlignment="textStart"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_column="2"
+                                android:layout_columnWeight="80"
+                                android:layout_gravity="left"
+                                android:padding="5dp"
+                                android:text="Text"
+                                android:textAlignment="gravity"
+                                android:textSize="16dp" />
+                            <!-- Preis?
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_column="2"
+                        android:layout_gravity="end"
+                        android:text="Preis"
+                        android:textAlignment="viewEnd"
+                        android:textSize="16dp"
+                        android:padding="5dp"
+
+                        />
+        -->
+                            <!-- column for Button to delete row -->
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_column="3"
+                                android:layout_columnWeight="10"
+                                android:layout_gravity="end"
+                                android:padding="5dp"
+                                android:text="Delete"
+                                android:textAlignment="viewEnd"
+                                android:textSize="16dp" />
+                        </TableRow>
+                        <!-- Add a  line. -->
+                        <View
+                            android:layout_height="1px"
+                            android:background="@color/black" />
+                    </TableLayout>
                 </TableLayout>
                 <!-- the body with a list of artikel -->
-
                 <ScrollView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -199,53 +241,78 @@
 
                     </TableLayout>
                 </ScrollView>
-                </LinearLayout>
+                <!-- Liefer Ende -->
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/textView3e"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Liefer Ende:" />
+
+                        <EditText
+                            android:id="@+id/editTextLieferEnde"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:inputType="datetime"
+                            android:text="" />
+
+                    </TableRow>
+                </TableLayout>
+            </LinearLayout>
+            <!-- the signature part -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
 
                 <com.github.gcacace.signaturepad.views.SignaturePad
                     android:id="@+id/signature_pad"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     app:penColor="@android:color/black" />
+
                 <LinearLayout
                     android:id="@+id/buttons_container"
-                    android:paddingTop="16dp"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
                     android:orientation="horizontal"
-                    android:layout_alignParentBottom="true">
+                    android:paddingTop="16dp">
 
                     <Button
                         android:id="@+id/clearSignatureButton"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="clear"
-                        android:enabled="false" />
+                        android:layout_weight="1"
+                        android:enabled="false"
+                        android:text="clear" />
 
                     <Button
                         android:id="@+id/saveSignatureButton"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="save"
-                        android:enabled="false" />
+                        android:layout_weight="1"
+                        android:enabled="false"
+                        android:text="save" />
                 </LinearLayout>
+
                 <Button
                     android:id="@+id/button_create_pdf"
                     android:layout_width="match_parent"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="PDF erstellen"
-                    android:enabled="false" />
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    android:text="PDF erstellen" />
 
             </LinearLayout>
-
         </LinearLayout>
     </ScrollView>
-
 </LinearLayout>
