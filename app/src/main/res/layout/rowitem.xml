@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.layout.table.TestActivity">
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/tvMenge"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="Menge">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/tvArtikelnummer"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:text="Artikelnummer"></TextView>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/tvArtikeltext"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:text="Artikeltext">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/tvPreis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Preis"></TextView>
+
+        </TableRow>
+        <TableRow>
+            <ImageButton
+                android:id="@+id/btnDelete"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:contentDescription="Delete"
+                android:onClick="myClickHandler"
+                android:scaleType="center"
+                android:src="@drawable/delete_icon">
+
+            </ImageButton>
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button"
+                android:onClick="myClickHandler"/>
+
+        </TableRow>
+
+</TableLayout>

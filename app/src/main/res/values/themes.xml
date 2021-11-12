@@ -19,6 +19,7 @@
     <style name="MyEditTextStyleWide" parent="android:Widget.EditText">
         <!-- Customizations  -->
         <item name="android:maxLines">1</item>
+
     </style>
     <style name="MyImageViewStyleSamll" >
         <!-- Customizations  -->

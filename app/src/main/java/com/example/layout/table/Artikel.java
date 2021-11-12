@@ -4,10 +4,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Artikel implements Parcelable {
-    private String _pos="1";
     private String _menge = "1";
     private String _artikelnummer = "";
     private String _artikelText = "";
+    private String _preis="0,00";
 
     public String get_menge() {
         return _menge;
@@ -33,10 +33,19 @@ public class Artikel implements Parcelable {
         return this._artikelText;
     }
 
-    public Artikel(String menge, String nummer, String text){
+    public void set_preisText(String preis) {
+        this._preis = preis;
+    }
+
+    public String get_preistext() {
+        return this._preis;
+    }
+
+    public Artikel(String menge, String nummer, String text, String preis){
         _artikelText=text;
         _artikelnummer=nummer;
         _menge=menge;
+        _preis=preis;
     }
     public Artikel(){
 
@@ -44,14 +53,14 @@ public class Artikel implements Parcelable {
 
     // Parcelling part
     public Artikel(Parcel in){
-        String[] data = new String[3];
+        String[] data = new String[4];
 
         in.readStringArray(data);
         // the order needs to be the same as in writeToParcel() method
-        this._pos = data[0];
-        this._menge = data[1];
-        this._artikelnummer = data[2];
-        this._artikelText=data[3];
+        this._menge = data[0];
+        this._artikelnummer = data[1];
+        this._artikelText=data[2];
+        this._preis = data[3];
     }
 
     @Override
@@ -61,10 +70,11 @@ public class Artikel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int i) {
-        dest.writeStringArray(new String[] {this._pos,
+        dest.writeStringArray(new String[] {
                 this._menge,
                 this._artikelnummer,
-                this._artikelText});
+                this._artikelText,
+                this._preis});
 
     }
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {

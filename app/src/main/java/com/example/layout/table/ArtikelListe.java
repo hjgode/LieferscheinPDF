@@ -16,4 +16,9 @@ public class ArtikelListe  {
     public ArrayList<Artikel> getArtikel(){
         return this._artikelliste;
     }
+    public String[] getList(){
+        String[] array = new String[_artikelliste.size()];
+        array=_artikelliste.toArray(array);
+        return  array;
+    }
 }

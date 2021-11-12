@@ -19,6 +19,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
+import android.text.Layout;
 import android.transition.Visibility;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -57,7 +58,7 @@ public class TableLayoutActivity extends AppCompatActivity implements View.OnKey
 
     SignaturePad mSignaturePad=null;
     Bitmap signatureBitmap=null;
-    String signatureFilename="";
+    String signatureFilename="Signature_lieferschein.jpg";
 
     Button btn_show_hide_kunde;
 
@@ -107,64 +108,67 @@ public class TableLayoutActivity extends AppCompatActivity implements View.OnKey
                 currentRowNumber=tableLayout.getChildCount();
 
                 // Set new table row layout parameters.
-                TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
+                TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT +
+                        TableRow.LayoutParams.MATCH_PARENT);
                 tableRow.setLayoutParams(layoutParams);
 
                 // Add a TextView in the first column.
                 //Menge
-                EditText textView = (EditText) getLayoutInflater().inflate(R.layout.small_edittext, null);//new EditText(context);
-                textView.setInputType(InputType.TYPE_CLASS_NUMBER);
-                textView.setText("1"+currentRowNumber);
-                textView.setPadding(5,5,5,5);
-                textView.setMaxLines(1);
-                textView.setOnKeyListener(TableLayoutActivity.this::onKey);
-                tableRow.addView(textView, column++);
+                EditText tvMenge = (EditText) getLayoutInflater().inflate(R.layout.small_edittext, null);//new EditText(context);
+                tvMenge.setInputType(InputType.TYPE_CLASS_NUMBER);
+                tvMenge.setText("1"+currentRowNumber);
+                tvMenge.setPadding(5,5,5,5);
+                tvMenge.setMaxLines(1);
+                tvMenge.setHint("Preis");
+                tvMenge.setOnKeyListener(TableLayoutActivity.this::onKey);
+                tableRow.addView(tvMenge, column++);
 
                 // Add a TextView in the second column
-                //artikelText
-                EditText textView2 = (EditText) getLayoutInflater().inflate(R.layout.wide_edittext, null);//new EditText(context);
-                textView2.setText("Artikeltext "+ currentRowNumber);
+                //artikelNummer
+                EditText tvArtikelNummer = (EditText) getLayoutInflater().inflate(R.layout.wide_edittext, null);//new EditText(context);
+                tvArtikelNummer.setText("Artikelnummer "+ currentRowNumber);
 //                textView2.setPadding(5,5,5,5);
-                textView2.setMaxLines(2);
+                tvArtikelNummer.setMaxLines(1);
+                tvArtikelNummer.setHint("Artikelnummer");
 //                textView2.setMinLines(2);
-                textView2.setOnKeyListener(TableLayoutActivity.this::onKey);
-                tableRow.addView(textView2, column++);
-/*
+                tvArtikelNummer.setOnKeyListener(TableLayoutActivity.this::onKey);
+                tableRow.addView(tvArtikelNummer, column++);
+
                 // Add a TextView in the third column
-                EditText textView3 = new EditText(context);
-                textView3.setText("99.99");
-                textView3.setPadding(5,5,5,5);
-                textView3.setMaxLines(1);
-                textView3.setOnKeyListener(TableLayoutActivity.this::onKey);
-                tableRow.addView(textView3, 2);
-*/
+                //artikelText
+                EditText tvArtikelText = (EditText) getLayoutInflater().inflate(R.layout.wide_edittext, null);//new EditText(context);
+                tvArtikelText.setText("Artikeltext "+ currentRowNumber);
+//                textView2.setPadding(5,5,5,5);
+                tvArtikelText.setMaxLines(1);
+                tvArtikelText.setHint("Artikeltext");
+//                textView2.setMinLines(2);
+                tvArtikelText.setOnKeyListener(TableLayoutActivity.this::onKey);
+                tableRow.addView(tvArtikelText, column++);
+
+                //preis
+                EditText tvArtikelPreis = new EditText(context);
+                tvArtikelPreis.setText("0,00");
+                tvArtikelPreis.setPadding(5,5,5,5);
+                tvArtikelPreis.setMaxLines(1);
+                tvArtikelPreis.setHint("Preis");
+                tvArtikelPreis.setOnKeyListener(TableLayoutActivity.this::onKey);
+                tableRow.addView(tvArtikelPreis, column++);
+
                 // Button to delete row
-//                Button buttonDeleteRow=new Button(context);
-                /*
-                Button buttonDeleteRow=(Button)getLayoutInflater().inflate(R.layout.small_button, null);
-                buttonDeleteRow.setText("-");
-                buttonDeleteRow.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        tableLayout.removeView(tableRow);
-                    }
-                });
-                tableRow.addView(buttonDeleteRow, column++);
-*/
                 int resourceId = context.getResources().getIdentifier("delete_icon", "drawable",
                         context.getPackageName());
 
-                ImageView imageView=(ImageView) getLayoutInflater().inflate(R.layout.small_image, null);// new ImageView(context);
-                imageView.setImageResource(resourceId);
-                imageView.setMaxHeight(30);
-                imageView.setMaxWidth(30);
-                imageView.setOnClickListener(new View.OnClickListener() {
+                ImageView ivDelete=(ImageView) getLayoutInflater().inflate(R.layout.small_image, null);// new ImageView(context);
+                ivDelete.setImageResource(resourceId);
+                ivDelete.setMaxHeight(30);
+                ivDelete.setMaxWidth(30);
+                ivDelete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         tableLayout.removeView(tableRow);
                     }
                 });
-                tableRow.addView(imageView, column++);
+                tableRow.addView(ivDelete, column++);
 
                 tableLayout.addView(tableRow);
             }
@@ -188,7 +192,7 @@ public class TableLayoutActivity extends AppCompatActivity implements View.OnKey
                public void onClick(View view) {
                    signatureBitmap=mSignaturePad.getSignatureBitmap();
                    //save the bitmap
-                   if (addJpgSignatureToGallery(signatureBitmap)) {
+                   if (addJpgSignatureToGallery(signatureBitmap, signatureFilename)) {
                        Toast.makeText(context, "Signature saved into the Gallery", Toast.LENGTH_SHORT).show();
                        mSignaturePad.setEnabled(false);
                        buttonCreatePDF.setEnabled(true);
@@ -301,10 +305,10 @@ public class TableLayoutActivity extends AppCompatActivity implements View.OnKey
         }
         return file;
     }
-    public boolean addJpgSignatureToGallery(Bitmap signature) {
+    public boolean addJpgSignatureToGallery(Bitmap signature, String signaturefile) {
         boolean result = false;
         try {
-            File photo = new File(getAlbumStorageDir("SignaturePad"), "Signature_lieferschein.jpg");
+            File photo = new File(getAlbumStorageDir("SignaturePad"), signaturefile);
             saveBitmapToJPG(signature, photo);
             scanMediaFile(photo);
             signatureFilename=photo.getAbsolutePath();
@@ -385,4 +389,5 @@ public class TableLayoutActivity extends AppCompatActivity implements View.OnKey
 
         return bundle;
     }
+
 }
