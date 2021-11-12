@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".AddEditArtikelActivity">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tvEditMenge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="80dp"
+                android:text="Menge" />
+
+            <EditText
+                android:id="@+id/edEditMenge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Menge eingeben"
+                android:text="1" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tvEditArtNr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="80dp"
+                android:text="Nummer" />
+
+            <EditText
+                android:id="@+id/edEditArtNr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Artikelnummer eingeben"
+                android:text="1123456" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tvEditArtText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="80dp"
+                android:text="Text" />
+
+            <EditText
+                android:id="@+id/edEditArtText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Artikeltext eingeben"
+                android:text="Artikeltext" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tvEditArtPreis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="80dp"
+                android:text="Preis" />
+
+            <EditText
+                android:id="@+id/edEditArtPreis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Preis eingeben"
+                android:text="0,00" />
+        </TableRow>
+    </TableLayout>
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right">
+
+        <TableRow
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_gravity="right">
+            <Button
+                android:id="@+id/btnEditSave"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Speichern" />
+            <Button
+                android:id="@+id/btnEditCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Verwerfen" />
+
+        </TableRow>
+    </TableLayout>
+
+</LinearLayout>

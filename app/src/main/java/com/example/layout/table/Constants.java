@@ -17,4 +17,17 @@ public class Constants {
     public static String BUNDLE_LIEFER_START="BUNDLE_LIEFER_START";
     public static String BUNDLE_LIEFER_ENDE="BUNDLE_LIEFER_ENDE";
 
+    public static String INTENT_ART_BUNDLE="INTENT_ART_BUNDLE";
+
+    public static String INTENT_ART_EDIT_LISTVIEW_ID="INTENT_ART_EDIT_LISTVIEW_ID";
+    public static String INTENT_ART_EDIT_ACTIONS ="INTENT_ART_EDIT_ACTIONS";
+    public static String INTENT_ART_EDIT_ACTION="EDIT";
+    public static String INTENT_ART_ADD_ACTION="ADD";
+    public static String INTENT_ART_MENGE="INTENT_ART_MENGE";
+    public static String INTENT_ART_NUMMER="INTENT_ART_NUMMER";
+    public static String INTENT_ART_TEXT = "INTENT_ART_TEXT";
+    public static String INTENT_ART_PREIS="INTENT_ART_PREIS";
+
+    public static final int ACTIVITY_ADD_EDIT_ARTIKEL = 123;
+
 }

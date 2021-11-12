@@ -2,6 +2,7 @@ package com.example.layout.table;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 public class Artikel implements Parcelable {
     private String _menge = "1";
@@ -39,6 +40,12 @@ public class Artikel implements Parcelable {
 
     public String get_preistext() {
         return this._preis;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return _menge+":"+_artikelnummer+"/"+_artikelText+"/"+_preis;
     }
 
     public Artikel(String menge, String nummer, String text, String preis){

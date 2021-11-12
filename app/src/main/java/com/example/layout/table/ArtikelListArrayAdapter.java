@@ -34,7 +34,7 @@ public class ArtikelListArrayAdapter extends ArrayAdapter<Artikel> {
         TextView tvArtikelnummer = (TextView) row.findViewById(R.id.tvArtikelnummer);
         TextView tvArtikeltext = (TextView) row.findViewById(R.id.tvArtikeltext);
         TextView tvArtikelpreis = (TextView) row.findViewById(R.id.tvPreis);
-        ImageButton btnDelete = (ImageButton) row.findViewById(R.id.btnDelete);
+//        ImageButton btnDelete = (ImageButton) row.findViewById(R.id.btnDelete);
 //        btnDelete.setFocusable(false);
 
         tvMenge.setText(artikel.get_menge());

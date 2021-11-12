@@ -47,24 +47,5 @@
                 android:text="Preis"></TextView>
 
         </TableRow>
-        <TableRow>
-            <ImageButton
-                android:id="@+id/btnDelete"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:contentDescription="Delete"
-                android:onClick="myClickHandler"
-                android:scaleType="center"
-                android:src="@drawable/delete_icon">
-
-            </ImageButton>
-            <Button
-                android:id="@+id/button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Button"
-                android:onClick="myClickHandler"/>
-
-        </TableRow>
 
 </TableLayout>
