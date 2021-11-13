@@ -42,7 +42,25 @@ public class TestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
+
+        Button btnSave=(Button)findViewById(R.id.btnArtikelListeSpeichern);
+        Button btnCancel=(Button)findViewById(R.id.btnArtikelListeVerwerfen);
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ArtikelList myArtikelist=new ArtikelList();
+                myArtikelist.set_artikelliste(artikelList);
+                myArtikelist.saveList(context);
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
         listView=(ListView)findViewById(android.R.id.list);
+
         // Setting header
         TextView textView = new TextView(this);
         textView.setTypeface(Typeface.DEFAULT_BOLD);

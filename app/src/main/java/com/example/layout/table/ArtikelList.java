@@ -1,5 +1,9 @@
 package com.example.layout.table;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -10,128 +14,7 @@ import java.util.List;
 import java.util.ListIterator;
 
 public class ArtikelList {
-    List<Artikel> _artikelliste=new List<Artikel>() {
-        @Override
-        public int size() {
-            return 0;
-        }
-
-        @Override
-        public boolean isEmpty() {
-            return false;
-        }
-
-        @Override
-        public boolean contains(@Nullable Object o) {
-            return false;
-        }
-
-        @NonNull
-        @Override
-        public Iterator<Artikel> iterator() {
-            return null;
-        }
-
-        @NonNull
-        @Override
-        public Object[] toArray() {
-            return new Object[0];
-        }
-
-        @NonNull
-        @Override
-        public <T> T[] toArray(@NonNull T[] ts) {
-            return null;
-        }
-
-        @Override
-        public boolean add(Artikel artikel) {
-            return false;
-        }
-
-        @Override
-        public boolean remove(@Nullable Object o) {
-            return false;
-        }
-
-        @Override
-        public boolean containsAll(@NonNull Collection<?> collection) {
-            return false;
-        }
-
-        @Override
-        public boolean addAll(@NonNull Collection<? extends Artikel> collection) {
-            return false;
-        }
-
-        @Override
-        public boolean addAll(int i, @NonNull Collection<? extends Artikel> collection) {
-            return false;
-        }
-
-        @Override
-        public boolean removeAll(@NonNull Collection<?> collection) {
-            return false;
-        }
-
-        @Override
-        public boolean retainAll(@NonNull Collection<?> collection) {
-            return false;
-        }
-
-        @Override
-        public void clear() {
-
-        }
-
-        @Override
-        public Artikel get(int i) {
-            return null;
-        }
-
-        @Override
-        public Artikel set(int i, Artikel artikel) {
-            return null;
-        }
-
-        @Override
-        public void add(int i, Artikel artikel) {
-
-        }
-
-        @Override
-        public Artikel remove(int i) {
-            return null;
-        }
-
-        @Override
-        public int indexOf(@Nullable Object o) {
-            return 0;
-        }
-
-        @Override
-        public int lastIndexOf(@Nullable Object o) {
-            return 0;
-        }
-
-        @NonNull
-        @Override
-        public ListIterator<Artikel> listIterator() {
-            return null;
-        }
-
-        @NonNull
-        @Override
-        public ListIterator<Artikel> listIterator(int i) {
-            return null;
-        }
-
-        @NonNull
-        @Override
-        public List<Artikel> subList(int i, int i1) {
-            return null;
-        }
-    };
+    List<Artikel> _artikelliste=new ArrayList<Artikel>();
 
     public ArtikelList(){
         _artikelliste=new ArrayList<Artikel>();
@@ -143,4 +26,49 @@ public class ArtikelList {
         return this._artikelliste;
     }
 
+    public void set_artikelliste(List<Artikel>listArtikel){
+        ArrayList<Artikel> arrlistofArtikel = new ArrayList<Artikel>(listArtikel);
+    }
+    public boolean saveList(Context context){
+        SharedPreferences sharedPreferences= PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor sharedPreferencesEditor=sharedPreferences.edit();
+
+        StringBuilder csvList = new StringBuilder();
+        for(Artikel a : _artikelliste){
+            csvList.append(a.get_menge());
+            csvList.append("|");
+            csvList.append(a.get_artikelnummer());
+            csvList.append("|");
+            csvList.append(a.get_artikeltext());
+            csvList.append("|");
+            csvList.append(a.get_preistext());
+            csvList.append("\n");
+        }
+
+        sharedPreferencesEditor.putString ("myList", csvList.toString());
+        return true;
+    }
+    public int restoreList(Context context){
+        SharedPreferences sharedPreferences= PreferenceManager.getDefaultSharedPreferences(context);
+
+        _artikelliste.clear();
+        String csvList = sharedPreferences.getString("myList","");
+        if(csvList.equals(""))
+            return 0;
+        String[] lines = csvList.split("\n");
+        for (String line:lines
+             ) {
+            String[] items = csvList.split("|");
+            for(int i=0; i < items.length; i++){
+                Artikel artikel=new Artikel();
+                artikel.set_menge(items[0]);
+                artikel.set_artikelnummer(items[1]);
+                artikel.set_artikelText(items[2]);
+                artikel.set_preisText(items[3]);
+                _artikelliste.add(artikel);
+            }
+
+        }
+        return _artikelliste.size();
+    }
 }

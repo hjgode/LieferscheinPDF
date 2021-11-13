@@ -10,7 +10,21 @@
     <ListView
         android:id="@+id/android:list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:focusable="true"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+
         />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Abbrechen"
+                android:id="@+id/btnArtikelListeVerwerfen"
+                />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Speichern"
+                android:id="@+id/btnArtikelListeSpeichern"
+                />
+
 </LinearLayout>
