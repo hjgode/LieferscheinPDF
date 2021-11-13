@@ -4,7 +4,6 @@ package com.example.layout.table;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
-import android.content.EntityIterator;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -14,25 +13,18 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
-import android.text.Layout;
-import android.transition.Visibility;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.gcacace.signaturepad.views.SignaturePad;
@@ -42,9 +34,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.List;
 
-public class TableLayoutActivity extends AppCompatActivity implements View.OnKeyListener {
+public class MainActivity extends AppCompatActivity implements View.OnKeyListener {
     public static String TAG="TableLayout";
     private Context context = null;
     int currentRowNumber=0;
@@ -67,9 +58,9 @@ public class TableLayoutActivity extends AppCompatActivity implements View.OnKey
         super.onCreate(savedInstanceState);
         verifyStoragePermissions(this);
 
-        setContentView(R.layout.activity_table_layout);
+        setContentView(R.layout.activity_main);
 
-        setTitle("Artikel Liste");
+        setTitle("Lieferschein");
 
         editName=(EditText)findViewById(R.id.editTextTextPersonName);
         editStrasse=(EditText)findViewById(R.id.editTextPersonStrasse);
@@ -89,6 +80,7 @@ public class TableLayoutActivity extends AppCompatActivity implements View.OnKey
                 }
             }
         });
+
         // Get TableLayout object in layout xml.
         //final TableLayout
         tableLayout = (TableLayout)findViewById(R.id.table_layout_table);
@@ -120,7 +112,7 @@ public class TableLayoutActivity extends AppCompatActivity implements View.OnKey
                 tvMenge.setPadding(5,5,5,5);
                 tvMenge.setMaxLines(1);
                 tvMenge.setHint("Preis");
-                tvMenge.setOnKeyListener(TableLayoutActivity.this::onKey);
+                tvMenge.setOnKeyListener(MainActivity.this::onKey);
                 tableRow.addView(tvMenge, column++);
 
                 // Add a TextView in the second column
@@ -131,7 +123,7 @@ public class TableLayoutActivity extends AppCompatActivity implements View.OnKey
                 tvArtikelNummer.setMaxLines(1);
                 tvArtikelNummer.setHint("Artikelnummer");
 //                textView2.setMinLines(2);
-                tvArtikelNummer.setOnKeyListener(TableLayoutActivity.this::onKey);
+                tvArtikelNummer.setOnKeyListener(MainActivity.this::onKey);
                 tableRow.addView(tvArtikelNummer, column++);
 
                 // Add a TextView in the third column
@@ -142,7 +134,7 @@ public class TableLayoutActivity extends AppCompatActivity implements View.OnKey
                 tvArtikelText.setMaxLines(1);
                 tvArtikelText.setHint("Artikeltext");
 //                textView2.setMinLines(2);
-                tvArtikelText.setOnKeyListener(TableLayoutActivity.this::onKey);
+                tvArtikelText.setOnKeyListener(MainActivity.this::onKey);
                 tableRow.addView(tvArtikelText, column++);
 
                 //preis
@@ -151,7 +143,7 @@ public class TableLayoutActivity extends AppCompatActivity implements View.OnKey
                 tvArtikelPreis.setPadding(5,5,5,5);
                 tvArtikelPreis.setMaxLines(1);
                 tvArtikelPreis.setHint("Preis");
-                tvArtikelPreis.setOnKeyListener(TableLayoutActivity.this::onKey);
+                tvArtikelPreis.setOnKeyListener(MainActivity.this::onKey);
                 tableRow.addView(tvArtikelPreis, column++);
 
                 // Button to delete row
@@ -290,7 +282,7 @@ public class TableLayoutActivity extends AppCompatActivity implements View.OnKey
             case REQUEST_EXTERNAL_STORAGE: {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length <= 0 || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(TableLayoutActivity.this, "Cannot write images to external storage", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Cannot write images to external storage", Toast.LENGTH_SHORT).show();
                 }
             }
         }
@@ -322,7 +314,7 @@ public class TableLayoutActivity extends AppCompatActivity implements View.OnKey
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         Uri contentUri = Uri.fromFile(photo);
         mediaScanIntent.setData(contentUri);
-        TableLayoutActivity.this.sendBroadcast(mediaScanIntent);
+        MainActivity.this.sendBroadcast(mediaScanIntent);
     }
 
     public void saveBitmapToJPG(Bitmap bitmap, File photo) throws IOException {

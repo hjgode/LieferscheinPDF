@@ -43,8 +43,15 @@ public class TestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
+        Button btnAdd=(Button)findViewById(R.id.btnArtikelListeAddNew);
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addNewArtikel(-1);
+            }
+        });
+
         Button btnSave=(Button)findViewById(R.id.btnArtikelListeSpeichern);
-        Button btnCancel=(Button)findViewById(R.id.btnArtikelListeVerwerfen);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,6 +60,8 @@ public class TestActivity extends AppCompatActivity {
                 myArtikelist.saveList(context);
             }
         });
+
+        Button btnCancel=(Button)findViewById(R.id.btnArtikelListeVerwerfen);
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -138,7 +147,8 @@ public class TestActivity extends AppCompatActivity {
                 Toast.makeText(context,
                         "Edit? "+selectedItem.toString(), Toast.LENGTH_LONG).show();
 // Start the SecondActivity
-                bundle=new Bundle();
+                addNewArtikel(itemPosition);
+/*                bundle=new Bundle();
                 bundle.putString(Constants.INTENT_ART_EDIT_ACTIONS, Constants.INTENT_ART_EDIT_ACTION);
                 bundle.putInt(INTENT_ART_EDIT_LISTVIEW_ID,itemPosition);
                 bundle.putString(Constants.INTENT_ART_MENGE,artikel.get_menge());
@@ -150,6 +160,7 @@ public class TestActivity extends AppCompatActivity {
                 intent.putExtra(Constants.INTENT_ART_BUNDLE,bundle);
 
                 startActivityForResult(intent, Constants.ACTIVITY_ADD_EDIT_ARTIKEL);
+*/
                 break;
             case 2: //ADD
                 Toast.makeText(context,
@@ -170,6 +181,23 @@ public class TestActivity extends AppCompatActivity {
                 break;
         }
         return super.onContextItemSelected(item);
+    }
+    public void addNewArtikel(int pos){
+        Artikel artikel=new Artikel();
+        Bundle bundle=new Bundle();
+        Intent intent;
+        bundle.putString(Constants.INTENT_ART_EDIT_ACTIONS, Constants.INTENT_ART_ADD_ACTION);
+        bundle.putInt(INTENT_ART_EDIT_LISTVIEW_ID,pos);
+        bundle.putString(Constants.INTENT_ART_MENGE,artikel.get_menge());
+        bundle.putString(Constants.INTENT_ART_NUMMER,artikel.get_artikelnummer());
+        bundle.putString(Constants.INTENT_ART_TEXT,artikel.get_artikeltext());
+        bundle.putString(Constants.INTENT_ART_PREIS,artikel.get_preistext());
+
+        intent = new Intent(this, AddEditArtikelActivity.class);
+        intent.putExtra(Constants.INTENT_ART_BUNDLE,bundle);
+
+        startActivityForResult(intent, Constants.ACTIVITY_ADD_EDIT_ARTIKEL);
+
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

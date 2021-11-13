@@ -11,15 +11,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TableLayout">
-        <activity android:name=".AddEditArtikelActivity"></activity>
-        <activity android:name=".TestActivity">
+        <activity android:name=".AddEditArtikelActivity"
+            android:windowSoftInputMode="adjustPan">
+
+        </activity>
+        <activity android:name=".TestActivity"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TableLayoutActivity"></activity>
+        <activity android:name=".MainActivity"></activity>
     </application>
 
 </manifest>

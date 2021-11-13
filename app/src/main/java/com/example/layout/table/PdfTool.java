@@ -1,22 +1,18 @@
 package com.example.layout.table;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.ChapterAutoNumber;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
-import com.itextpdf.text.Jpeg;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
@@ -27,11 +23,9 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.DottedLineSeparator;
-import com.itextpdf.text.pdf.draw.LineSeparator;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.net.ContentHandler;
 import java.util.ArrayList;
 
 public class PdfTool {
@@ -41,7 +35,7 @@ public class PdfTool {
 
     public PdfTool(Context context, Bundle bundle){
         mContext=context;
-        Log.d(TableLayoutActivity.TAG, "pdf document about created...");
+        Log.d(MainActivity.TAG, "pdf document about created...");
         File docudir = new File(getDocumentsStorageDir("Lieferschein"), "Signature_lieferschein.pdf");
         dest = docudir.getAbsolutePath();// getAppPath(mContext) + "123.pdf";
         PdfWriter pdfWriter=null;
@@ -66,7 +60,7 @@ public class PdfTool {
             document.open();
             document.setPageSize(PageSize.A4);
         }catch (Exception ex){
-            Log.d(TableLayoutActivity.TAG, ex.getMessage());
+            Log.d(MainActivity.TAG, ex.getMessage());
         }
         // Document Settings
 //        PdfDocumentInfo info=pdfDocument.getDocumentInfo();
@@ -97,7 +91,7 @@ public class PdfTool {
             fontBody = new Font(baseFont, mBodyFontSize);
             fontLarge=new Font(baseFont, mHeadingFontSize);
         }catch (Exception ex){
-            Log.d(TableLayoutActivity.TAG, "Exception for createfont "+ex.getMessage());
+            Log.d(MainActivity.TAG, "Exception for createfont "+ex.getMessage());
         }
         try{
             // LINE SEPARATOR
@@ -304,10 +298,10 @@ public class PdfTool {
 
             document.close();
             Toast.makeText(context, "PDF gespeichert: "+dest,Toast.LENGTH_LONG);
-            Log.d(TableLayoutActivity.TAG, "pdf document ready: "+dest);
+            Log.d(MainActivity.TAG, "pdf document ready: "+dest);
 
         }catch (Exception ex){
-            Log.d(TableLayoutActivity.TAG, "document.add exception: "+ex.getMessage());
+            Log.d(MainActivity.TAG, "document.add exception: "+ex.getMessage());
         }
 
     }
@@ -415,7 +409,7 @@ public class PdfTool {
         File file = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_DOCUMENTS), albumName);
         if (!file.mkdirs()) {
-            Log.e(TableLayoutActivity.TAG, "Directory not created");
+            Log.e(MainActivity.TAG, "Directory not created");
         }
         return file;
     }
