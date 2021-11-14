@@ -2,6 +2,7 @@ package com.example.layout.table;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -34,8 +35,8 @@ import static com.example.layout.table.Constants.INTENT_ART_EDIT_LISTVIEW_ID;
 
 public class ArtikelListeActivity extends AppCompatActivity {
     ListView listView;
-    Activity context=this;
-    List<Artikel> artikelList;
+    Context context=this;
+    ArtikelList artikelList=new ArtikelList();
     ArtikelListArrayAdapter artikelListArrayAdapter;
 
     @Override
@@ -58,9 +59,7 @@ public class ArtikelListeActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ArtikelList myArtikelist=new ArtikelList();
-                myArtikelist.set_artikelliste(artikelList);
-                myArtikelist.saveList(context);
+                artikelList.saveList(context);
                 finish();
             }
         });
@@ -80,12 +79,9 @@ public class ArtikelListeActivity extends AppCompatActivity {
         textView.setText("Artikel ");
         listView.addHeaderView(textView);
 
-        artikelList=new ArrayList<Artikel>();
 
         if(doRestore){
-            ArtikelList artikelListSaved=new ArtikelList();
-            artikelListSaved.restoreList(context);
-            artikelList = artikelListSaved._artikelliste;
+            artikelList.restoreList(context);
         }else { //sample data
             Artikel artikel = new Artikel("1", "123456", "Text", "9,99");
             artikelList.add(artikel);
@@ -93,7 +89,7 @@ public class ArtikelListeActivity extends AppCompatActivity {
             artikelList.add(artikel);
         }
         //listdata
-        artikelListArrayAdapter=new ArtikelListArrayAdapter(this, artikelList);
+        artikelListArrayAdapter=new ArtikelListArrayAdapter(this, artikelList.getArtikelList());
         listView.setAdapter(artikelListArrayAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

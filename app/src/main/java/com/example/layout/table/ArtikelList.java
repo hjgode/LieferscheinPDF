@@ -15,14 +15,24 @@ import java.util.ListIterator;
 
 public class ArtikelList {
     List<Artikel> _artikelliste=new ArrayList<Artikel>();
-
+    final String separator="§";
     public ArtikelList(){
+
         _artikelliste=new ArrayList<Artikel>();
     }
     public void add(Artikel artikel){
+
         _artikelliste.add(artikel);
     }
-    public List<Artikel> getArtikel(){
+    public void remove(int pos){
+
+        _artikelliste.remove(pos);
+    }
+    public void set(int pos, Artikel artikel){
+        _artikelliste.set(pos, artikel);
+    }
+    public List<Artikel> getArtikelList(){
+
         return this._artikelliste;
     }
 
@@ -36,16 +46,18 @@ public class ArtikelList {
         StringBuilder csvList = new StringBuilder();
         for(Artikel a : _artikelliste){
             csvList.append(a.get_menge());
-            csvList.append("|");
+            csvList.append(separator);
             csvList.append(a.get_artikelnummer());
-            csvList.append("|");
+            csvList.append(separator);
             csvList.append(a.get_artikeltext());
-            csvList.append("|");
+            csvList.append(separator);
             csvList.append(a.get_preistext());
             csvList.append("\n");
         }
 
         sharedPreferencesEditor.putString ("myList", csvList.toString());
+        sharedPreferencesEditor.apply();
+        sharedPreferencesEditor.commit();
         return true;
     }
     public int restoreList(Context context){
@@ -56,18 +68,16 @@ public class ArtikelList {
         if(csvList.equals(""))
             return 0;
         String[] lines = csvList.split("\n");
-        for (String line:lines
-             ) {
-            String[] items = csvList.split("|");
-            for(int i=0; i < items.length; i++){
-                Artikel artikel=new Artikel();
+        for (String line:lines) {
+            String[] items = csvList.split(separator);
+            if(items.length==4) {
+                Artikel artikel = new Artikel();
                 artikel.set_menge(items[0]);
                 artikel.set_artikelnummer(items[1]);
                 artikel.set_artikelText(items[2]);
                 artikel.set_preisText(items[3]);
                 _artikelliste.add(artikel);
             }
-
         }
         return _artikelliste.size();
     }
