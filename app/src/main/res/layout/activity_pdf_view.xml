@@ -18,16 +18,20 @@
         android:id="@+id/pdfErrorView"
         android:visibility="gone"
         />
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Send eMail"
-        android:id="@+id/btnPdfSendEmail"
-        />
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Schliessen"
-        android:id="@+id/btnPdfCancel"
-        />
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Send eMail"
+            android:id="@+id/btnPdfSendEmail"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Schliessen"
+            android:id="@+id/btnPdfCancel"
+            />
+    </LinearLayout>
 </LinearLayout>
