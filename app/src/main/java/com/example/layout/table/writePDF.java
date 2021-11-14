@@ -40,6 +40,7 @@ public class writePDF {
     public writePDF(Context context, Bundle bundle) throws IOException, BadElementException {
         context=context;
         String pdffile=bundle.getString(Constants.BUNDLE_PDF_FILE);// "/home/hgode/Documents/TestFile.pdf";
+        String eMail=bundle.getString(Constants.BUNDLE_PDF_EMAIL);
 
         Image imageLogo=getImageFromAssets("LoGo.jpg");
 

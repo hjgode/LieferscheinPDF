@@ -46,13 +46,13 @@ public class MainActivity extends AppCompatActivity implements View.OnKeyListene
     EditText editStrasse;
     EditText editOrt;
     EditText editLieferDatum, editLieferNummer, editLieferStart, editLieferEnde;
-    TableLayout tableLayout;
 
+    EditText editEmail;
     SignaturePad mSignaturePad=null;
     Bitmap signatureBitmap=null;
     String signatureFilename="Signature_lieferschein.jpg";
 
-    Button btn_show_hide_kunde;
+    Button btn_show_hide_kunde, btn_show_hide_lieferdaten;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,16 +74,34 @@ public class MainActivity extends AppCompatActivity implements View.OnKeyListene
 
         btn_show_hide_kunde=(Button)findViewById(R.id.button_show_hide_kunde);
         View view_kunde=(View)findViewById(R.id.view_kunde);
+        view_kunde.setVisibility(View.GONE);
         btn_show_hide_kunde.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(view_kunde.getVisibility()== View.GONE){
                     view_kunde.setVisibility(View.VISIBLE);
-                    btn_show_hide_kunde.setText("Hide");
+                    btn_show_hide_kunde.setText("Verbergen");
                 }else {
                     view_kunde.setVisibility(View.GONE);
-                    btn_show_hide_kunde.setText("Show");
+                    btn_show_hide_kunde.setText("Zeigen");
                 }
+            }
+        });
+
+        View view_lieferdaten=(View)findViewById(R.id.view_lieferdaten);
+        view_lieferdaten.setVisibility(View.GONE);
+        btn_show_hide_lieferdaten=(Button)findViewById(R.id.button_show_hide_lieferung);
+        btn_show_hide_lieferdaten.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(view_lieferdaten.getVisibility()== View.GONE){
+                    view_lieferdaten.setVisibility(View.VISIBLE);
+                    btn_show_hide_lieferdaten.setText("Verbergen");
+                }else {
+                    view_lieferdaten.setVisibility(View.GONE);
+                    btn_show_hide_lieferdaten.setText("Zeigen");
+                }
+
             }
         });
 
@@ -103,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements View.OnKeyListene
             }
         });
 
+        editEmail=(EditText)findViewById(R.id.etEmail);
         mSignaturePad=(SignaturePad)findViewById(R.id.signature_pad);
 
         Button buttonCreatePDF=(Button)findViewById(R.id.button_create_pdf);
@@ -292,6 +311,7 @@ public class MainActivity extends AppCompatActivity implements View.OnKeyListene
         bundle.putString(Constants.BUNDLE_LIEFER_START, editLieferStart.getText().toString());
         bundle.putString(Constants.BUNDLE_LIEFER_ENDE, editLieferEnde.getText().toString());
 
+        bundle.putString(Constants.BUNDLE_PDF_EMAIL,editEmail.getText().toString());
         //signature must be passed by file name
         bundle.putString(Constants.BUNDLE_SIGNATUREFILE, signatureFilename);
 
