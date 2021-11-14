@@ -7,8 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,18 +16,11 @@ import android.view.View;
 import android.view.ViewParent;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
 
 import static com.example.layout.table.Constants.INTENT_ART_EDIT_LISTVIEW_ID;
 
@@ -45,7 +36,7 @@ public class ArtikelListeActivity extends AppCompatActivity {
         Intent intent=getIntent();
         boolean doRestore = intent.getBooleanExtra(Constants.INTENT_ARTIKEL_LISTE_DO_RESTORE,false);
 
-        setContentView(R.layout.activity_test);
+        setContentView(R.layout.activity_artikelliste);
 
         Button btnAdd=(Button)findViewById(R.id.btnArtikelListeAddNew);
         btnAdd.setOnClickListener(new View.OnClickListener() {
