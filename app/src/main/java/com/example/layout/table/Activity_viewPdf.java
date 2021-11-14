@@ -8,16 +8,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import es.voghdev.pdfviewpager.library.PDFViewPager;
-import es.voghdev.pdfviewpager.library.adapter.PDFPagerAdapter;
+//import es.voghdev.pdfviewpager.library.PDFViewPager;
+//import es.voghdev.pdfviewpager.library.adapter.PDFPagerAdapter;
 //import es.voghdev.pdfviewpager.library.adapter.PdfErrorHandler;
+
+import com.github.barteksc.pdfviewer.PDFView;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 import static android.view.View.VISIBLE;
 
 public class Activity_viewPdf extends AppCompatActivity {
 
-    PDFViewPager pdfViewPager;
-    PDFPagerAdapter adapter;
+    PDFView pdfView;
     View pdfErrorView;
     Button btnClose;
 
@@ -36,27 +41,21 @@ public class Activity_viewPdf extends AppCompatActivity {
             }
         });
         Intent intent=getIntent();
-        String pdfFile=intent.getStringExtra(Constants.BUNDLE_PDF_FILENAME);
+        String pdfFileName=intent.getStringExtra(Constants.BUNDLE_PDF_FILENAME);
 
-        pdfViewPager = findViewById(R.id.pdfViewPager);
+        pdfView = findViewById(R.id.pdfView);
         pdfErrorView = findViewById(R.id.pdfErrorView);
-
-        adapter = new PDFPagerAdapter.Builder(this)
-/*                .setErrorHandler(new PdfErrorHandler() {
-                    @Override
-                    public void onPdfError(Throwable t) {
-                        pdfErrorView.setVisibility(VISIBLE);
-                    }
-                })
-*/                .setPdfPath(pdfFile)
-                .create();
-
-        pdfViewPager.setAdapter(adapter);
+        File pdfFile= null;
+        try {
+            pdfFile = new File(pdfFileName);
+            pdfView.fromFile(pdfFile).load();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     protected void onDestroy(){
         super.onDestroy();
-        ((PDFPagerAdapter)pdfViewPager.getAdapter()).close();
     }
 }

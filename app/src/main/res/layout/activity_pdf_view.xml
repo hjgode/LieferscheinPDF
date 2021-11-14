@@ -7,11 +7,10 @@
     android:orientation="vertical"
     tools:context=".Activity_viewPdf">
 
-    <es.voghdev.pdfviewpager.library.PDFViewPager
-        android:id="@+id/pdfViewPager"
+    <com.github.barteksc.pdfviewer.PDFView
+        android:id="@+id/pdfView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_height="400dp"
         />
     <TextView
         android:layout_width="match_parent"

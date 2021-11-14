@@ -33,5 +33,5 @@ public class Constants {
     public static String INTENT_ART_PREIS="INTENT_ART_PREIS";
 
     public static final int ACTIVITY_ADD_EDIT_ARTIKEL = 123;
-    public static final int ACTIVITY_WRITE_PDF = 124;
+    public static final int ACTIVITY_SHOW_PDF = 124;
 }

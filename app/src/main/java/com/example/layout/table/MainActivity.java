@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnKeyListene
     SignaturePad mSignaturePad=null;
     Bitmap signatureBitmap=null;
     String signatureFilename="Signature_lieferschein.jpg";
-    String _pdfFilename="Lieferschein.jpg";
+    String _pdfFilename="Lieferschein.pdf";
 
     Button btn_show_hide_kunde, btn_show_hide_lieferdaten;
 
@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnKeyListene
         setContentView(R.layout.activity_main);
 
         setTitle("Lieferschein");
+        _pdfFilename=getDocumentPdfFile(_pdfFilename);
 
         editName=(EditText)findViewById(R.id.editTextTextPersonName);
         editStrasse=(EditText)findViewById(R.id.editTextPersonStrasse);
@@ -134,8 +135,9 @@ public class MainActivity extends AppCompatActivity implements View.OnKeyListene
                 try{
                     WritePdf writePdf=new WritePdf(context,createBundle());
                     Intent intentShowPdfintent = new Intent(context, Activity_viewPdf.class);
+
                     intentShowPdfintent.putExtra(Constants.BUNDLE_PDF_FILENAME, _pdfFilename);
-                    startActivityForResult(intentShowPdfintent, Constants.ACTIVITY_WRITE_PDF);
+                    startActivityForResult(intentShowPdfintent, Constants.ACTIVITY_SHOW_PDF);
                 }catch (Exception ex){
                     Log.d(TAG, "WritePdf..exception: "+ex.getMessage());
                 }
@@ -209,7 +211,7 @@ public class MainActivity extends AppCompatActivity implements View.OnKeyListene
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
-            case (Constants.ACTIVITY_WRITE_PDF): {
+            case (Constants.ACTIVITY_SHOW_PDF): {
                 if (resultCode == Activity.RESULT_OK) {
 
                 }

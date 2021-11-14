@@ -37,7 +37,7 @@ public class WritePdf {
         String pdffile=bundle.getString(Constants.BUNDLE_PDF_FILE);// "/home/hgode/Documents/TestFile.pdf";
         String eMail=bundle.getString(Constants.BUNDLE_PDF_EMAIL);
 
-        Image imageLogo=getImageFromAssets("LoGo.jpg");
+        Image imageLogo=getImageFromAssets("images/LoGo.jpg");
 
 //        String signaturefile="/home/hgode/Pictures/sign.png";
         String signaturefile = bundle.getString(Constants.BUNDLE_SIGNATUREFILE);
