@@ -112,6 +112,45 @@
                         android:layout_height="match_parent">
 
                         <TextView
+                            android:id="@+id/textView3f"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Liefer Datum:" />
+
+                        <EditText
+                            android:id="@+id/editTextLieferDatum"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:inputType="datetime"
+                            android:text="" />
+
+                    </TableRow>
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/textView3g"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Liefer Nummer:" />
+
+                        <EditText
+                            android:id="@+id/editTextLieferNummer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:inputType="text"
+                            android:text="" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
                             android:id="@+id/textView3d"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -123,6 +162,25 @@
                             android:layout_height="wrap_content"
                             android:ems="10"
                             android:inputType="datetime" />
+                    </TableRow>
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/textView3e"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Liefer Ende:" />
+
+                        <EditText
+                            android:id="@+id/editTextLieferEnde"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:inputType="datetime"
+                            android:text="" />
+
                     </TableRow>
                 </TableLayout>
 
@@ -155,126 +213,26 @@
                                 android:textSize="@dimen/LargeFont" />
                             <!-- button to add row -->
                             <Button
-                                android:id="@+id/table_layout_add_row_button"
+                                android:id="@+id/btnArtikelBearbeiten"
                                 android:layout_column="3"
                                 android:layout_gravity="end"
-                                android:text="+"
-                                android:textAlignment="viewEnd"
-                                android:textSize="@dimen/SmallFont"
                                 android:minWidth="0dp"
                                 android:minHeight="0dp"
+                                android:text="Liste"
+                                android:textAlignment="viewEnd"
+                                android:textSize="@dimen/SmallFont"
                                 android:theme="@style/Widget.AppCompat.Button.Small" />
 
                         </TableRow>
                     </TableLayout>
                     <!-- table header outside list -->
-                    <TableLayout
-                        android:id="@+id/table_layout_head2"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="10dp"
-                        android:stretchColumns="2">
-
-                        <TableRow
-                            android:id="@+id/table_layout_head_row_2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <!-- android:layout_span configure how many columns to span by this column. -->
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_column="1"
-                                android:layout_columnWeight="10"
-                                android:layout_gravity="start"
-                                android:padding="5dp"
-                                android:text="Menge"
-                                android:textAlignment="textStart"
-                                android:textSize="16dp" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_column="2"
-                                android:layout_columnWeight="80"
-                                android:layout_gravity="left"
-                                android:padding="5dp"
-                                android:text="Text"
-                                android:textAlignment="gravity"
-                                android:textSize="16dp" />
-                            <!-- Preis?
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_column="2"
-                        android:layout_gravity="end"
-                        android:text="Preis"
-                        android:textAlignment="viewEnd"
-                        android:textSize="16dp"
-                        android:padding="5dp"
-
-                        />
-        -->
-                            <!-- column for Button to delete row -->
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_column="3"
-                                android:layout_columnWeight="10"
-                                android:layout_gravity="end"
-                                android:padding="5dp"
-                                android:text="Delete"
-                                android:textAlignment="viewEnd"
-                                android:textSize="16dp" />
-                        </TableRow>
-                        <!-- Add a  line. -->
-                        <View
-                            android:layout_height="1px"
-                            android:background="@color/black" />
-                    </TableLayout>
                 </TableLayout>
                 <!-- the body with a list of artikel -->
-                <ScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <!-- this table is the list to extend, will be filled by code -->
-                    <TableLayout
-                        android:id="@+id/table_layout_table"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="10dp"
-                        android:shrinkColumns="1,3"
-                        android:stretchColumns="2">
-
-
-                    </TableLayout>
-                </ScrollView>
                 <!-- Liefer Ende -->
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <TextView
-                            android:id="@+id/textView3e"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Liefer Ende:" />
-
-                        <EditText
-                            android:id="@+id/editTextLieferEnde"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:inputType="datetime"
-                            android:text="" />
-
-                    </TableRow>
                 </TableLayout>
             </LinearLayout>
             <!-- the signature part -->

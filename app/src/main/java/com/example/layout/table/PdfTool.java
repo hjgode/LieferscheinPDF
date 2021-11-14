@@ -27,6 +27,7 @@ import com.itextpdf.text.pdf.draw.DottedLineSeparator;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 public class PdfTool {
     Document document;
@@ -36,14 +37,24 @@ public class PdfTool {
     public PdfTool(Context context, Bundle bundle){
         mContext=context;
         Log.d(MainActivity.TAG, "pdf document about created...");
-        File docudir = new File(getDocumentsStorageDir("Lieferschein"), "Signature_lieferschein.pdf");
+
+        String pdfFileName=bundle.getString(Constants.BUNDLE_PDF_FILE,"Signature_lieferschein.pdf");
+        String eMailAddress=bundle.getString(Constants.BUNDLE_PDF_EMAIL,"");
+
+        File docudir = new File(getDocumentsStorageDir("Lieferschein"), pdfFileName);
         dest = docudir.getAbsolutePath();// getAppPath(mContext) + "123.pdf";
         PdfWriter pdfWriter=null;
         Document document=null;
         PdfDocument pdfDocument=null;
 
         //get bundle values
-        ArrayList<Artikel> artikelListe=bundle.getParcelableArrayList(Constants.BUNDLE_ARTIKEL_LISTE);
+//        ArrayList<Artikel> artikelListe=bundle.getParcelableArrayList(Constants.BUNDLE_ARTIKEL_LISTE);
+        // -OR-
+        List<Artikel> artikelListe;
+        ArtikelList artikelList=new ArtikelList();
+        artikelList.restoreList(context);
+        artikelListe=artikelList._artikelliste;
+
         String kundenname=bundle.getString(Constants.BUNDLE_KUNDEN_NAME);
         String kundenstrasse=bundle.getString(Constants.BUNDLE_KUNDEN_STRASSE);
         String kundenort=bundle.getString(Constants.BUNDLE_KUNDEN_ORT);

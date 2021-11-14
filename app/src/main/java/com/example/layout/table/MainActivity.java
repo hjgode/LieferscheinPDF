@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnKeyListene
     EditText editName;
     EditText editStrasse;
     EditText editOrt;
+    EditText editLieferDatum, editLieferNummer, editLieferStart, editLieferEnde;
     TableLayout tableLayout;
 
     SignaturePad mSignaturePad=null;
@@ -66,6 +67,11 @@ public class MainActivity extends AppCompatActivity implements View.OnKeyListene
         editStrasse=(EditText)findViewById(R.id.editTextPersonStrasse);
         editOrt=(EditText)findViewById(R.id.editTextPersonOrt);
 
+        editLieferDatum=(EditText)findViewById(R.id.editTextLieferDatum);
+        editLieferNummer=(EditText)findViewById(R.id.editTextLieferNummer);
+        editLieferStart=(EditText)findViewById(R.id.editTextLieferStart);
+        editLieferEnde=(EditText)findViewById(R.id.editTextLieferEnde);
+
         btn_show_hide_kunde=(Button)findViewById(R.id.button_show_hide_kunde);
         View view_kunde=(View)findViewById(R.id.view_kunde);
         btn_show_hide_kunde.setOnClickListener(new View.OnClickListener() {
@@ -81,88 +87,20 @@ public class MainActivity extends AppCompatActivity implements View.OnKeyListene
             }
         });
 
-        // Get TableLayout object in layout xml.
-        //final TableLayout
-        tableLayout = (TableLayout)findViewById(R.id.table_layout_table);
-
         context = getApplicationContext();
 
-        int rowCount = tableLayout.getChildCount();
-        currentRowNumber=rowCount+1;
         // Get add table row button.
-        Button addRowButton = (Button)findViewById(R.id.table_layout_add_row_button);
-        addRowButton.setOnClickListener(new View.OnClickListener() {
+        Button btnShowArtikel = (Button)findViewById(R.id.btnArtikelBearbeiten);
+        btnShowArtikel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int column=0;
-                // Create a new table row.
-                TableRow tableRow = new TableRow(context);
-                currentRowNumber=tableLayout.getChildCount();
 
-                // Set new table row layout parameters.
-                TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT +
-                        TableRow.LayoutParams.MATCH_PARENT);
-                tableRow.setLayoutParams(layoutParams);
-
-                // Add a TextView in the first column.
-                //Menge
-                EditText tvMenge = (EditText) getLayoutInflater().inflate(R.layout.small_edittext, null);//new EditText(context);
-                tvMenge.setInputType(InputType.TYPE_CLASS_NUMBER);
-                tvMenge.setText("1"+currentRowNumber);
-                tvMenge.setPadding(5,5,5,5);
-                tvMenge.setMaxLines(1);
-                tvMenge.setHint("Preis");
-                tvMenge.setOnKeyListener(MainActivity.this::onKey);
-                tableRow.addView(tvMenge, column++);
-
-                // Add a TextView in the second column
-                //artikelNummer
-                EditText tvArtikelNummer = (EditText) getLayoutInflater().inflate(R.layout.wide_edittext, null);//new EditText(context);
-                tvArtikelNummer.setText("Artikelnummer "+ currentRowNumber);
-//                textView2.setPadding(5,5,5,5);
-                tvArtikelNummer.setMaxLines(1);
-                tvArtikelNummer.setHint("Artikelnummer");
-//                textView2.setMinLines(2);
-                tvArtikelNummer.setOnKeyListener(MainActivity.this::onKey);
-                tableRow.addView(tvArtikelNummer, column++);
-
-                // Add a TextView in the third column
-                //artikelText
-                EditText tvArtikelText = (EditText) getLayoutInflater().inflate(R.layout.wide_edittext, null);//new EditText(context);
-                tvArtikelText.setText("Artikeltext "+ currentRowNumber);
-//                textView2.setPadding(5,5,5,5);
-                tvArtikelText.setMaxLines(1);
-                tvArtikelText.setHint("Artikeltext");
-//                textView2.setMinLines(2);
-                tvArtikelText.setOnKeyListener(MainActivity.this::onKey);
-                tableRow.addView(tvArtikelText, column++);
-
-                //preis
-                EditText tvArtikelPreis = new EditText(context);
-                tvArtikelPreis.setText("0,00");
-                tvArtikelPreis.setPadding(5,5,5,5);
-                tvArtikelPreis.setMaxLines(1);
-                tvArtikelPreis.setHint("Preis");
-                tvArtikelPreis.setOnKeyListener(MainActivity.this::onKey);
-                tableRow.addView(tvArtikelPreis, column++);
-
-                // Button to delete row
-                int resourceId = context.getResources().getIdentifier("delete_icon", "drawable",
-                        context.getPackageName());
-
-                ImageView ivDelete=(ImageView) getLayoutInflater().inflate(R.layout.small_image, null);// new ImageView(context);
-                ivDelete.setImageResource(resourceId);
-                ivDelete.setMaxHeight(30);
-                ivDelete.setMaxWidth(30);
-                ivDelete.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        tableLayout.removeView(tableRow);
-                    }
-                });
-                tableRow.addView(ivDelete, column++);
-
-                tableLayout.addView(tableRow);
+                Intent intent = new Intent(context,ArtikelListeActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putString(Constants.INTENT_ART_EDIT_ACTIONS, Constants.BUNDLE_ARTIKEL_LISTE);
+                intent.putExtra(Constants.INTENT_ART_BUNDLE,bundle);
+                startActivity(intent);
+//                startActivityForResult(intent, Constants.ACTIVITY_ADD_EDIT_ARTIKEL);
             }
         });
 
@@ -350,31 +288,10 @@ public class MainActivity extends AppCompatActivity implements View.OnKeyListene
         bundle.putString(Constants.BUNDLE_KUNDEN_STRASSE, editStrasse.getText().toString());
         bundle.putString(Constants.BUNDLE_KUNDEN_ORT, editOrt.getText().toString());
 
-        ArtikelListe artikelListe=new ArtikelListe();
-        TableLayout table=tableLayout;
-        for(int i = 0, j = table.getChildCount(); i < j; i++) {
-            View child = table.getChildAt(i);
-            if (child instanceof TableRow) {
-                TableRow row = (TableRow) child;
-                Artikel artikel=new Artikel();
-                for (int x = 0; x < row.getChildCount(); x++) {
-                    View view = row.getChildAt(x);
-                    //0 -> Menge
-                    //1 -> ArtikelNummer/Text
-                    if (view instanceof EditText) {
-                        String s = ((EditText) view).getText().toString();
-                        if(x==0) {
-                            artikel.set_menge(s);
-                        }
-                        else if (x==1){
-                            artikel.set_artikelnummer(s);
-                        }
-                    }
-                }//if instance TableRow
-                artikelListe.add(artikel);
-            }
-        }
-        bundle.putParcelableArrayList(Constants.BUNDLE_ARTIKEL_LISTE,artikelListe.getArtikel());
+        bundle.putString(Constants.BUNDLE_LIEFER_DATUM, editLieferDatum.getText().toString());
+        bundle.putString(Constants.BUNDLE_LIEFER_NUMMER, editLieferNummer.getText().toString());
+        bundle.putString(Constants.BUNDLE_LIEFER_START, editLieferStart.getText().toString());
+        bundle.putString(Constants.BUNDLE_LIEFER_ENDE, editLieferEnde.getText().toString());
 
         //signature must be passed by file name
         bundle.putString(Constants.BUNDLE_SIGNATUREFILE, signatureFilename);

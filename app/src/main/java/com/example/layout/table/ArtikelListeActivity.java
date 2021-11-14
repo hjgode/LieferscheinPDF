@@ -32,7 +32,7 @@ import java.util.ListIterator;
 
 import static com.example.layout.table.Constants.INTENT_ART_EDIT_LISTVIEW_ID;
 
-public class TestActivity extends AppCompatActivity {
+public class ArtikelListeActivity extends AppCompatActivity {
     ListView listView;
     Activity context=this;
     List<Artikel> artikelList;
