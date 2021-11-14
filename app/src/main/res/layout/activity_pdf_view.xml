@@ -23,12 +23,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Send eMail"
-        android:id="@+id/editPdfSendEmail"
+        android:id="@+id/btnPdfSendEmail"
         />
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Schliessen"
-        android:id="@+id/editPdfCancel"
+        android:id="@+id/btnPdfCancel"
         />
 </LinearLayout>

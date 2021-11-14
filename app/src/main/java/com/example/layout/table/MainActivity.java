@@ -37,7 +37,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnKeyListener {
     public static String TAG="TableLayout";
-    private Context context = null;
+    private Context context = this;
     int currentRowNumber=0;
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnKeyListene
     SignaturePad mSignaturePad=null;
     Bitmap signatureBitmap=null;
     String signatureFilename="Signature_lieferschein.jpg";
+    String _pdfFilename="Lieferschein.jpg";
 
     Button btn_show_hide_kunde, btn_show_hide_lieferdaten;
 
@@ -130,6 +131,14 @@ public class MainActivity extends AppCompatActivity implements View.OnKeyListene
             @Override
             public void onClick(View view) {
                 PdfTool pdfTool=new PdfTool(context, createBundle());
+                try{
+                    WritePdf writePdf=new WritePdf(context,createBundle());
+                    Intent intentShowPdfintent = new Intent(context, Activity_viewPdf.class);
+                    intentShowPdfintent.putExtra(Constants.BUNDLE_PDF_FILENAME, _pdfFilename);
+                    startActivityForResult(intentShowPdfintent, Constants.ACTIVITY_WRITE_PDF);
+                }catch (Exception ex){
+                    Log.d(TAG, "WritePdf..exception: "+ex.getMessage());
+                }
             }
         });
 
@@ -197,6 +206,17 @@ public class MainActivity extends AppCompatActivity implements View.OnKeyListene
         dataFromBundle(bundle);
     }
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case (Constants.ACTIVITY_WRITE_PDF): {
+                if (resultCode == Activity.RESULT_OK) {
+
+                }
+            }
+        }
+    }
+    @Override
     public boolean onKey(View view, int keyCode, KeyEvent event) {
         if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
                 (keyCode == KeyEvent.KEYCODE_ENTER) &&
@@ -252,6 +272,27 @@ public class MainActivity extends AppCompatActivity implements View.OnKeyListene
             Log.e("SignaturePad", "Directory not created");
         }
         return file;
+    }
+    public File getDocumentStorageDir(String albumName) {
+        // Get the directory for the user's public pictures directory.
+        File file = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_DOCUMENTS), albumName);
+        if (!file.mkdirs()) {
+            Log.e("PdfLieferscheine", "Directory not created");
+        }
+        return file;
+    }
+    public String getDocumentPdfFile(String pdfFilename){
+        String result = _pdfFilename;
+        try {
+            File pdfFile = new File(getDocumentStorageDir("PdfLieferscheine"), pdfFilename);
+            _pdfFilename=pdfFile.getAbsolutePath();
+            result = _pdfFilename;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+
     }
     public boolean addJpgSignatureToGallery(Bitmap signature, String signaturefile) {
         boolean result = false;
@@ -314,6 +355,7 @@ public class MainActivity extends AppCompatActivity implements View.OnKeyListene
         bundle.putString(Constants.BUNDLE_PDF_EMAIL,editEmail.getText().toString());
         //signature must be passed by file name
         bundle.putString(Constants.BUNDLE_SIGNATUREFILE, signatureFilename);
+        bundle.putString(Constants.BUNDLE_PDF_FILE,_pdfFilename);
 
         return bundle;
     }

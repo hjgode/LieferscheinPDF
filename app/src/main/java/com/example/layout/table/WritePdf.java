@@ -2,11 +2,7 @@ package com.example.layout.table;
 
 import android.content.Context;
 import android.content.res.AssetManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.widget.ImageButton;
 
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.BaseColor;
@@ -14,7 +10,6 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Image;
-import com.itextpdf.text.Jpeg;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Rectangle;
@@ -34,11 +29,11 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class writePDF {
+public class WritePdf {
     static PdfWriter pdfwriter;
-    Context context;
-    public writePDF(Context context, Bundle bundle) throws IOException, BadElementException {
-        context=context;
+    Context _context =null;
+    public WritePdf(Context context, Bundle bundle) throws IOException, BadElementException {
+        _context=context;
         String pdffile=bundle.getString(Constants.BUNDLE_PDF_FILE);// "/home/hgode/Documents/TestFile.pdf";
         String eMail=bundle.getString(Constants.BUNDLE_PDF_EMAIL);
 
@@ -321,7 +316,7 @@ public class writePDF {
         }
     }
     public Image getImageFromAssets(String fileName) throws IOException {
-        AssetManager assetManager = context.getAssets();
+        AssetManager assetManager = _context.getAssets();
         // this is storage overwritten on each iteration with bytes
         int bufferSize = 1024;
         byte[] buffer = new byte[bufferSize];
