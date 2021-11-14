@@ -97,8 +97,7 @@ public class MainActivity extends AppCompatActivity implements View.OnKeyListene
 
                 Intent intent = new Intent(context,ArtikelListeActivity.class);
                 Bundle bundle=new Bundle();
-                bundle.putString(Constants.INTENT_ART_EDIT_ACTIONS, Constants.BUNDLE_ARTIKEL_LISTE);
-                intent.putExtra(Constants.INTENT_ART_BUNDLE,bundle);
+                intent.putExtra(Constants.INTENT_ARTIKEL_LISTE_DO_RESTORE,true);
                 startActivity(intent);
 //                startActivityForResult(intent, Constants.ACTIVITY_ADD_EDIT_ARTIKEL);
             }

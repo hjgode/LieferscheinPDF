@@ -41,6 +41,9 @@ public class ArtikelListeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent=getIntent();
+        boolean doRestore = intent.getBooleanExtra(Constants.INTENT_ARTIKEL_LISTE_DO_RESTORE,false);
+
         setContentView(R.layout.activity_test);
 
         Button btnAdd=(Button)findViewById(R.id.btnArtikelListeAddNew);
@@ -58,6 +61,7 @@ public class ArtikelListeActivity extends AppCompatActivity {
                 ArtikelList myArtikelist=new ArtikelList();
                 myArtikelist.set_artikelliste(artikelList);
                 myArtikelist.saveList(context);
+                finish();
             }
         });
 
@@ -65,7 +69,7 @@ public class ArtikelListeActivity extends AppCompatActivity {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                finish();
             }
         });
         listView=(ListView)findViewById(android.R.id.list);
@@ -78,11 +82,16 @@ public class ArtikelListeActivity extends AppCompatActivity {
 
         artikelList=new ArrayList<Artikel>();
 
-        Artikel artikel=new Artikel("1", "123456","Text","9,99");
-        artikelList.add(artikel);
-        artikel=new Artikel("2", "123450","Text Artikel","7,99");
-        artikelList.add(artikel);
-
+        if(doRestore){
+            ArtikelList artikelListSaved=new ArtikelList();
+            artikelListSaved.restoreList(context);
+            artikelList = artikelListSaved._artikelliste;
+        }else { //sample data
+            Artikel artikel = new Artikel("1", "123456", "Text", "9,99");
+            artikelList.add(artikel);
+            artikel = new Artikel("2", "123450", "Text Artikel", "7,99");
+            artikelList.add(artikel);
+        }
         //listdata
         artikelListArrayAdapter=new ArtikelListArrayAdapter(this, artikelList);
         listView.setAdapter(artikelListArrayAdapter);

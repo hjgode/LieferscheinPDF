@@ -50,7 +50,7 @@ public class ArtikelList {
     }
     public int restoreList(Context context){
         SharedPreferences sharedPreferences= PreferenceManager.getDefaultSharedPreferences(context);
-
+//TODO FIX Save Restore
         _artikelliste.clear();
         String csvList = sharedPreferences.getString("myList","");
         if(csvList.equals(""))

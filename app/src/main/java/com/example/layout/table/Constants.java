@@ -14,6 +14,7 @@ public class Constants {
     public static String BUNDLE_FIRMA_DATEN = "BUNDLE_FIRMA_DATEN";
 
     public static String BUNDLE_ARTIKEL_LISTE = "BUNDLE_ARTIKEL_LISTE";
+    public static String INTENT_ARTIKEL_LISTE_DO_RESTORE = "INTENT_ARTIKEL_LISTE_DO_RESTORE";
 
     public static String BUNDLE_LIEFER_DATUM = "BUNDLE_LIEFER_DATUM";
     public static String BUNDLE_LIEFER_NUMMER = "BUNDLE_LIEFER_NUMMER";
