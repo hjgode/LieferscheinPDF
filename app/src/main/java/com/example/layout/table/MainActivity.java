@@ -76,7 +76,10 @@ public class MainActivity extends AppCompatActivity implements View.OnKeyListene
 
         btn_show_hide_kunde=(Button)findViewById(R.id.button_show_hide_kunde);
         View view_kunde=(View)findViewById(R.id.view_kunde);
-        view_kunde.setVisibility(View.GONE);
+
+        view_kunde.setVisibility(View.VISIBLE);
+        btn_show_hide_kunde.setText("Verbergen");
+
         btn_show_hide_kunde.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -131,12 +134,12 @@ public class MainActivity extends AppCompatActivity implements View.OnKeyListene
         buttonCreatePDF.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PdfTool pdfTool=new PdfTool(context, createBundle());
                 try{
                     WritePdf writePdf=new WritePdf(context,createBundle());
-                    Intent intentShowPdfintent = new Intent(context, Activity_viewPdf.class);
 
+                    Intent intentShowPdfintent = new Intent(context, Activity_viewPdf.class);
                     intentShowPdfintent.putExtra(Constants.BUNDLE_PDF_FILENAME, _pdfFilename);
+                    intentShowPdfintent.putExtra(Constants.BUNDLE_PDF_EMAIL, editEmail.getText().toString());
                     startActivityForResult(intentShowPdfintent, Constants.ACTIVITY_SHOW_PDF);
                 }catch (Exception ex){
                     Log.d(TAG, "WritePdf..exception: "+ex.getMessage());

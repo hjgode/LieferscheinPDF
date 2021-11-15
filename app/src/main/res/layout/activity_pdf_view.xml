@@ -27,11 +27,11 @@
             android:text="Send eMail"
             android:id="@+id/btnPdfSendEmail"
             />
+
         <Button
+            android:id="@+id/btnPdfCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Schliessen"
-            android:id="@+id/btnPdfCancel"
-            />
+            android:text="Schliessen" />
     </LinearLayout>
 </LinearLayout>
