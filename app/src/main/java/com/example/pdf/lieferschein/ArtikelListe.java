@@ -1,6 +1,4 @@
-package com.example.layout.table;
-
-import android.os.Parcelable;
+package com.example.pdf.lieferschein;
 
 import java.util.ArrayList;
 

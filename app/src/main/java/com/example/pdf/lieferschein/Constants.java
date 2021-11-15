@@ -1,4 +1,4 @@
-package com.example.layout.table;
+package com.example.pdf.lieferschein;
 
 public class Constants {
     public static String BUNDLE_SIGNATUREFILE = "BUNDLE_SIGNATUREFILE";

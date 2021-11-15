@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.layout.table">
+    package="com.example.pdf.lieferschein">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -11,14 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TableLayout">
-        <activity android:name=".Activity_viewPdf"></activity>
+        <activity android:name="com.example.pdf.lieferschein.Activity_viewPdf"></activity>
         <activity
-            android:name=".AddEditArtikelActivity"
+            android:name="com.example.pdf.lieferschein.AddEditArtikelActivity"
             android:windowSoftInputMode="adjustPan"></activity>
         <activity
-            android:name=".ArtikelListeActivity"
+            android:name="com.example.pdf.lieferschein.ArtikelListeActivity"
             android:windowSoftInputMode="adjustResize"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name="com.example.pdf.lieferschein.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

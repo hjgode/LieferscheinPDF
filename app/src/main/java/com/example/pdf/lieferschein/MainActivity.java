@@ -1,5 +1,5 @@
 //TableLayoutActivity
-package com.example.layout.table;
+package com.example.pdf.lieferschein;
 
 import android.Manifest;
 import android.app.Activity;
@@ -16,15 +16,11 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.Toast;
 
 import com.github.gcacace.signaturepad.views.SignaturePad;
@@ -36,7 +32,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnKeyListener {
-    public static String TAG="TableLayout";
+    public static String TAG="Lieferschein";
     private Context context = this;
     int currentRowNumber=0;
     private static final int REQUEST_EXTERNAL_STORAGE = 1;

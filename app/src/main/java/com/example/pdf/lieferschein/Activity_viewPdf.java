@@ -1,4 +1,4 @@
-package com.example.layout.table;
+package com.example.pdf.lieferschein;
 
 import android.app.Activity;
 import android.content.Context;
@@ -20,12 +20,8 @@ import android.widget.Toast;
 import com.github.barteksc.pdfviewer.PDFView;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.view.View.VISIBLE;
 
 public class Activity_viewPdf extends AppCompatActivity {
 

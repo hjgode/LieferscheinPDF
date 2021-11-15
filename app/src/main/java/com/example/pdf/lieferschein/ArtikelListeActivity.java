@@ -1,4 +1,4 @@
-package com.example.layout.table;
+package com.example.pdf.lieferschein;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -22,7 +22,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import static com.example.layout.table.Constants.INTENT_ART_EDIT_LISTVIEW_ID;
+import static com.example.pdf.lieferschein.Constants.INTENT_ART_EDIT_LISTVIEW_ID;
 
 public class ArtikelListeActivity extends AppCompatActivity {
     ListView listView;

@@ -1,4 +1,4 @@
-package com.example.layout.table;
+package com.example.pdf.lieferschein;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -26,7 +26,6 @@ import com.itextpdf.text.pdf.draw.DottedLineSeparator;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 public class PdfTool {
