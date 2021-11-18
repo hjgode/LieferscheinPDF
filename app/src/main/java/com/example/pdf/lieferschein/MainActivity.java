@@ -193,6 +193,7 @@ public class MainActivity extends AppCompatActivity implements View.OnKeyListene
         if(savedInstanceState!=null){
             dataFromBundle(savedInstanceState);
         }
+        btn_show_hide_kunde.requestFocus();
     }//onCreate
 
     @Override
@@ -330,8 +331,14 @@ public class MainActivity extends AppCompatActivity implements View.OnKeyListene
         editName.setText(bundle.getString(Constants.BUNDLE_KUNDEN_NAME));
         editStrasse.setText(bundle.getString(Constants.BUNDLE_KUNDEN_STRASSE));
         editOrt.setText(bundle.getString(Constants.BUNDLE_KUNDEN_ORT));
-        //add artikel to table...
-        ArrayList<Artikel> artikelListe=bundle.getParcelableArrayList(Constants.BUNDLE_ARTIKEL_LISTE);
+
+        editLieferDatum.setText(bundle.getString(Constants.BUNDLE_LIEFER_DATUM));
+        editLieferNummer.setText(bundle.getString(Constants.BUNDLE_LIEFER_NUMMER));
+        editLieferStart.setText(bundle.getString(Constants.BUNDLE_LIEFER_START));
+        editLieferEnde.setText(bundle.getString(Constants.BUNDLE_LIEFER_ENDE));
+
+        editEmail.setText(bundle.getString(Constants.BUNDLE_PDF_EMAIL));
+        _pdfFilename=bundle.getString(Constants.BUNDLE_PDF_FILE);
 
         String sf=bundle.getString("signaturefile");
         if(sf!=""){

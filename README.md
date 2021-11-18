@@ -6,7 +6,7 @@ Mit der LieferscheinPDF app kann man einen Kunden, eine Liste von Artikeln und e
 
 Aufgrund des eingeschränkten Bildschirms, kann man die Kunden und Artikel Daten im Hauptbildschirm ausblenden.
 
-Es werden verschiedene Progrmm Techniken und externe Libraries verwendet: Itext5g, SignaturePAD.
+Es werden verschiedene Programm-Techniken und externe Libraries verwendet: Itext5g, SignaturePAD. Die Artikeldaten werden über SharedPreferences in einer Art csv String gespeichert.
 
 Bilder
 
