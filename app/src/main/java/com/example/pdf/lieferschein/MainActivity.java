@@ -29,7 +29,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnKeyListener {
     public static String TAG="Lieferschein";
@@ -46,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnKeyListene
     EditText editEmail;
     SignaturePad mSignaturePad=null;
     Bitmap signatureBitmap=null;
-    String signatureFilename="Signature_lieferschein.jpg";
+    String signatureFilename="Signature_lieferschein.png";
     String _pdfFilename="Lieferschein.pdf";
 
     Button btn_show_hide_kunde, btn_show_hide_lieferdaten;
@@ -150,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements View.OnKeyListene
                public void onClick(View view) {
                    signatureBitmap=mSignaturePad.getSignatureBitmap();
                    //save the bitmap
-                   if (addJpgSignatureToGallery(signatureBitmap, signatureFilename)) {
+                   if (addImageSignatureToGallery(signatureBitmap, signatureFilename)) {
                        Toast.makeText(context, "Signature saved into the Gallery", Toast.LENGTH_SHORT).show();
                        mSignaturePad.setEnabled(false);
                        buttonCreatePDF.setEnabled(true);
@@ -310,11 +309,15 @@ public class MainActivity extends AppCompatActivity implements View.OnKeyListene
         return result;
 
     }
-    public boolean addJpgSignatureToGallery(Bitmap signature, String signaturefile) {
+    public boolean addImageSignatureToGallery(Bitmap signature, String signaturefile) {
         boolean result = false;
         try {
             File photo = new File(getAlbumStorageDir("SignaturePad"), signaturefile);
-            saveBitmapToJPG(signature, photo);
+            if(signaturefile.endsWith("jpg")){
+                saveBitmapToJPG(signature, photo);
+            }else{
+                saveBitmapToPNG(signature, photo);
+            }
             scanMediaFile(photo);
             signatureFilename=photo.getAbsolutePath();
             result = true;
@@ -337,6 +340,17 @@ public class MainActivity extends AppCompatActivity implements View.OnKeyListene
         canvas.drawBitmap(bitmap, 0, 0, null);
         OutputStream stream = new FileOutputStream(photo);
         newBitmap.compress(Bitmap.CompressFormat.JPEG, 80, stream);
+        //the bitmap is 480x150px
+        stream.close();
+    }
+    public void saveBitmapToPNG(Bitmap bitmap, File photo) throws IOException {
+        Bitmap newBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(newBitmap);
+        canvas.drawColor(Color.WHITE);
+        canvas.drawBitmap(bitmap, 0, 0, null);
+        OutputStream stream = new FileOutputStream(photo);
+        newBitmap.compress(Bitmap.CompressFormat.PNG, 80, stream);
+        //the bitmap is 480x150px
         stream.close();
     }
 

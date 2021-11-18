@@ -3,6 +3,7 @@ package com.example.pdf.lieferschein;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.BaseColor;
@@ -225,13 +226,21 @@ public class WritePdf {
         float kundenIndent=300;
         Paragraph pKunde=new Paragraph("Kunde");
         pKunde.setIndentationLeft(kundenIndent);
-        pKunde.setSpacingBefore(80);
+        pKunde.setSpacingBefore(40);
 
         //Create Image object
         Image imageSign = Image.getInstance(signaturefile);
+        //the bitmap is 480x150px, BUT the image is 144x480?! (Rectangle
+        Log.d(MainActivity.TAG,"pdf imageSign: "+imageSign.getScaledWidth());
+//        imageSign.scaleAbsoluteWidth(144); //2 inch
+//        imageSign.scaleToFit(480,150);
+        //get doc width (document.page.urx
+//        float fW=document.getPageSize().getRight();
+//        float imageSignIndent=fW-imageSign.getScaledWidth(); //ie 595 - 144 = 451
         imageSign.setScaleToFitHeight(true);
-//        imageSign.scaleAbsoluteHeight(100);
-        imageSign.scaleAbsoluteWidth((document.right()-kundenIndent)/2);
+        imageSign.scaleAbsoluteHeight(50);//150 / 3.2
+        imageSign.scaleAbsoluteWidth(150);//480 / 3.2
+//        imageSign.scaleAbsoluteWidth((document.right()-kundenIndent)/2);
         imageSign.enableBorderSide(Rectangle.BOTTOM);
         imageSign.setBorderColor(BaseColor.GRAY);
         imageSign.setUseVariableBorders(true);
