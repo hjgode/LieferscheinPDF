@@ -194,18 +194,32 @@ public class MainActivity extends AppCompatActivity implements View.OnKeyListene
             dataFromBundle(savedInstanceState);
         }
         btn_show_hide_kunde.requestFocus();
+        Log.d(TAG, "onCreate");
     }//onCreate
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
         savedInstanceState.putAll(createBundle());
+        Log.d(TAG, "onSaveInstanceState");
     }
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        //called when screen rotates, for example
         super.onRestoreInstanceState(savedInstanceState);
         Bundle bundle=savedInstanceState;
         dataFromBundle(bundle);
+        Log.d(TAG, "onRestoreInstanceState");
+    }
+    @Override
+    protected void onPause(){
+        Log.d(TAG, "onPause");
+        super.onPause();
+    }
+    @Override
+    protected void onResume(){
+        Log.d(TAG, "onResume");
+        super.onResume();
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -341,9 +355,16 @@ public class MainActivity extends AppCompatActivity implements View.OnKeyListene
         _pdfFilename=bundle.getString(Constants.BUNDLE_PDF_FILE);
 
         String sf=bundle.getString("signaturefile");
-        if(sf!=""){
-            Bitmap bitmap= BitmapFactory.decodeFile(signatureFilename);
-            mSignaturePad.setSignatureBitmap(bitmap);
+        if(sf != ""){
+            try {
+                File file = new File(sf);
+                if (file.exists()) {
+                    Bitmap bitmap = BitmapFactory.decodeFile(signatureFilename);
+                    mSignaturePad.setSignatureBitmap(bitmap);
+                }
+            }catch(Exception ex){
+                Log.d(TAG, "signature file exception: "+ex.getMessage());
+            }
         }
 
     }
