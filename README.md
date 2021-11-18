@@ -10,4 +10,4 @@ Es werden verschiedene Progrmm Techniken und externe Libraries verwendet: Itext5
 
 Bilder
 
-![Haput Bildschirm](https://raw.githubusercontent.com/hjgode/LieferscheinPDF/master/doc/main_01.png)
+![Haupt Bildschirm](https://raw.githubusercontent.com/hjgode/LieferscheinPDF/master/doc/main_01.png)
