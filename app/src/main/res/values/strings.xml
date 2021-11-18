@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TableLayout</string>
+    <string name="app_name">LieferscheinPDF</string>
     <string name="firmadaten">Musterfirma\nEntenstrasse 10\n12345 Musterstadt\nTel.: 01234-555123</string>
 
 </resources>

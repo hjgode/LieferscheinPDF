@@ -57,6 +57,10 @@ public class WritePdf {
         lieferankunft=bundle.getString(Constants.BUNDLE_LIEFER_START);
         lieferabfahrt=bundle.getString(Constants.BUNDLE_LIEFER_ENDE);
 
+        ArtikelList artikellist=new ArtikelList();
+        artikellist.restoreList(_context);
+        List<Artikel> artikel = artikellist.getArtikelList();
+
 		try {
         float left = 30;
         float right = 20;
@@ -158,15 +162,18 @@ public class WritePdf {
 
         PdfPTable tableArtikel=new PdfPTable(4);
 
+        //TODO read list
         tableArtikel.setWidths(new int[] {10,20,60,10});
-        List<Artikel> artikel=new ArrayList<Artikel>();
 
-        Artikel art=new Artikel("1", "123456", "Artikeltext", "21,99");
-        artikel.add(art);
-        art=new Artikel("2", "1236", "Artikeltext2", "34,50");
-        artikel.add(art);
-        art=new Artikel("1", "0ABcX", "Weiterer Artikel", "79,90");
-        artikel.add(art);
+        if(artikel.size()==0) {
+            //sample data
+            Artikel art = new Artikel("1", "123456", "Artikeltext", "21,99");
+            artikel.add(art);
+            art = new Artikel("2", "1236", "Artikeltext2", "34,50");
+            artikel.add(art);
+            art = new Artikel("1", "0ABcX", "Weiterer Artikel", "79,90");
+            artikel.add(art);
+        }
 
         tableArtikel.setHeaderRows(2); //total header/footer rows
         tableArtikel.setFooterRows(1);
@@ -223,7 +230,8 @@ public class WritePdf {
         //Create Image object
         Image imageSign = Image.getInstance(signaturefile);
         imageSign.setScaleToFitHeight(true);
-        imageSign.scaleAbsoluteHeight(100);
+//        imageSign.scaleAbsoluteHeight(100);
+        imageSign.scaleAbsoluteWidth((document.right()-kundenIndent)/2);
         imageSign.enableBorderSide(Rectangle.BOTTOM);
         imageSign.setBorderColor(BaseColor.GRAY);
         imageSign.setUseVariableBorders(true);
