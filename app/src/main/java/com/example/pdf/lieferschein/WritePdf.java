@@ -61,6 +61,7 @@ public class WritePdf {
         ArtikelList artikellist=new ArtikelList();
         artikellist.restoreList(_context);
         List<Artikel> artikel = artikellist.getArtikelList();
+        float fSumme=0;
 
 		try {
         float left = 30;
@@ -201,7 +202,14 @@ public class WritePdf {
         cell.setBorder(PdfPCell.NO_BORDER);
         tableArtikel.addCell(cell);
 
-        cell=getCellRight("xxx,yy");
+        for (Artikel a:artikel
+        ) {
+            fSumme+=Float.parseFloat(a.get_preistext().replace(',','.'))*Float.parseFloat(a.get_menge().replace(',','.'));
+        }
+        String sSumme=String.format("%.2f", fSumme);
+
+        //summe
+        cell=getCellRight(sSumme.replace('.',','));
         tableArtikel.addCell(cell);
 
         for (Artikel artikel2 : artikel) {
