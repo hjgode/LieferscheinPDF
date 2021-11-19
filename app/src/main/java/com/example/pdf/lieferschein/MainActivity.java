@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnKeyListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         verifyStoragePermissions(this);
 
         setContentView(R.layout.activity_main);
@@ -138,6 +139,7 @@ public class MainActivity extends AppCompatActivity implements View.OnKeyListene
                     startActivityForResult(intentShowPdfintent, Constants.ACTIVITY_SHOW_PDF);
                 }catch (Exception ex){
                     Log.d(TAG, "WritePdf..exception: "+ex.getMessage());
+                    Toast.makeText(context, "Error creating PDF: "+ex.getMessage(), Toast.LENGTH_LONG);
                 }
             }
         });

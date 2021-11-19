@@ -204,7 +204,10 @@ public class WritePdf {
 
         for (Artikel a:artikel
         ) {
-            fSumme+=Float.parseFloat(a.get_preistext().replace(',','.'))*Float.parseFloat(a.get_menge().replace(',','.'));
+            float fM=Utils.getNumberDecimal( a.get_menge());
+            float fP=Utils.getNumberDecimal( a.get_preistext());
+            fSumme+=fM+fP;
+//            fSumme+=Float.parseFloat(a.get_preistext().replace(',','.'))*Float.parseFloat(a.get_menge().replace(',','.'));
         }
         String sSumme=String.format("%.2f", fSumme);
 

@@ -28,6 +28,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.List;
 
+//NOT USED, but here for reference of other PDF possibilties
 public class PdfTool {
     Document document;
     String dest;
